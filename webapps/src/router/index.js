@@ -28,8 +28,8 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
+    redirect: '/example',
+    name: '心理测试',
     hidden: true,
     children: [{
       path: 'dashboard',
@@ -54,9 +54,17 @@ export const constantRouterMap = [
         path: 'test',
         name: 'Test',
         component: () => import('@/views/test/index'),
-        meta: { title: '开始测试', icon: 'eye' }
+        meta: { title: '开始测试', icon: 'eye' },
+        
       },
      
+      {
+        path: 'testing',
+        name: 'Testing',
+        component: () => import('@/views/test/test'),
+        meta: { title: '正在测试' },
+        hidden:true
+      },
       {
         path: 'report',
         name: 'Report',

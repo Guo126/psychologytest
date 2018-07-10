@@ -8,10 +8,13 @@ export function getList(params) {
   })
 }
 
-export function test(params) {
+export function getMes(params) {
   return request({
-    url:'/test',
-    method:'post',
+    url:'/getmes',
+    method:'get',
     params:params
   })
 }
+
+
+

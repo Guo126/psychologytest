@@ -8,7 +8,7 @@
         <span>MBTI性格类型测试问卷</span>
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">开始答题</el-button>
+          <el-button type="text" class="button" @click="handleDispatchSepcific">开始答题</el-button>
         </div>
       </div>
     </el-card>
@@ -19,7 +19,7 @@
         <span>职场学生测试问卷</span>
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">开始答题</el-button>
+          <el-button type="text" class="button" onclick="">开始答题</el-button>
         </div>
       </div>
     </el-card>
@@ -66,6 +66,12 @@ export default {
     return {
       currentDate: new Date()
     };
+  },
+  methods:{
+    handleDispatchSepcific(){
+      
+      this.$router.push('/example/testing?testId=1')
+    }
   }
 }
 </script>

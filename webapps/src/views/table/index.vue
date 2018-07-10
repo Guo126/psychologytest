@@ -5,7 +5,7 @@
       <div  class="text item ">
         <img src="" >
         欢迎您，
-        <el-tag>{{username}}</el-tag>
+        <el-tag>{{name}}</el-tag>
         </br>
         选择下方的磁块查看你当前评测进度
       </div>
@@ -68,7 +68,7 @@
    
 
 
-   <!-- <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+   <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
           {{scope.$index}}
@@ -101,7 +101,7 @@
         </template>
       </el-table-column>
     </el-table>
-    -->
+    
   </div>
 </template>
 
@@ -144,13 +144,19 @@
 
 
 import { getList } from '@/api/table'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       list: null,
       listLoading: true,
-      username:'test'
+      username:'',
+      mes:{
+          mail:'',
+          phone:'',
+      },
+      
     }
   },
   filters: {
@@ -166,13 +172,28 @@ export default {
   created() {
     this.fetchData()
   },
+  computed:{
+
+    ...mapGetters([
+      'name',
+      'roles'
+    ])
+  },
   methods: {
     fetchData() {
-      this.listLoading = true
-      getList(this.listQuery).then(response => {
+        this.listLoading = true;
+        getList(this.listQuery).then(response => {
+         
         this.username = response.data.items[0].author;
-        this.list = response.data.items
+       
+        this.list = response.data.items;
         this.listLoading = false
+       
+        getMes(this.mes).then(response=>{
+           this.mes.mail = response.data.mail;
+           this.mes.phone = response.data.phone;
+
+        })
       })
     }
   }
