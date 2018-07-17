@@ -30,6 +30,17 @@ public class User {
     @Column(name = "desc")
     private String desc;
 
+    @Column(name = "token")
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Integer getUserId() {
         return userId;
     }
