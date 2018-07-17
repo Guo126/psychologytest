@@ -1,4 +1,4 @@
-package com.glb.sz.model.entity.com_id;
+package com.glb.sz.model.entity.id;
 
 import java.io.Serializable;
 
