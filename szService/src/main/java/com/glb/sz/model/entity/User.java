@@ -1,5 +1,7 @@
 package com.glb.sz.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,12 +13,12 @@ public class User {
     @Column(name="user_id")
     private
     Integer userId;
-    @Column(name="user_name")
+    @Column(name="username")
     private
     String username;
-    @Column(name="user_password")
-    private
-    String password;
+    @Column(name="password")
+    @JsonIgnore
+    private String password;
 
     @Column(name = "nickname")
     private String nickname;
@@ -25,13 +27,34 @@ public class User {
     private String phone;
 
     @Column(name = "sex")
-    private byte sex;
+    private String sex;
 
     @Column(name = "desc")
     private String desc;
 
     @Column(name = "token")
     private String token;
+
+    public User(){
+
+    }
+
+    public User(String username, String password, String nickname, String phone, String sex, String desc, String token) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.sex = sex;
+        this.desc = desc;
+        this.token = token;
+    }
+
+    public User(String username, String password, String nickname, String token) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.token = token;
+    }
 
     public String getToken() {
         return token;
@@ -81,11 +104,11 @@ public class User {
         this.phone = phone;
     }
 
-    public byte getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

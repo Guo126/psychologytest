@@ -1,62 +1,71 @@
-package com.glb.sz.service.impl;
+package com.glb.sz.service.Impl;
+
 
 import com.glb.sz.Repository.UserRepository;
 import com.glb.sz.model.BaseResult;
-import com.glb.sz.model.dto.UserDTO;
-import com.glb.sz.model.entity.Admin;
 import com.glb.sz.model.entity.User;
-import com.glb.sz.service.AdminService;
 import com.glb.sz.service.UserService;
 import com.glb.sz.util.MD5Util;
+import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
-
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override
-    public void getAllUser(BaseResult<List<User>> result) {
-        List<User> userList = userRepository.getAllUser();
-        if(userList!=null){
-            result.setSuccess(true);
-            result.setMessage("成功");
-            result.setData(userList);
+    public void getUser(String username, String password, BaseResult<User> result) {
+        User user = userRepository.getUser(username,password);
+        ResultUtil.setResult(user,result);
+    }
 
+    @Override
+    @Transactional
+    public void login(Integer userId, BaseResult<User> result) {
+
+        User user = userRepository.getUser(userId);
+        if(user == null){
+            ResultUtil.setResult(null,result);
+            return;
         }
-        else{
-            result.setSuccess(false);
-            result.setMessage("失败");
+        int r = userRepository.login(userId,"online");
+        if(r == 0){
+            ResultUtil.setResult(null,result);
+            return;
         }
+
+        ResultUtil.setResult(user,result);
 
     }
 
     @Override
-    public void findByLogin(String username, String password, BaseResult<User> result) {
-        User user = userRepository.findByLogin(username,password);
-        if(user != null){
-            result.setSuccess(true);
-            result.setData(user);
-            result.setMessage("success");
+    @Transactional
+    public void logout(Integer userId, BaseResult<Object> result) {
+        int r = userRepository.logout(userId);
+        if(r != 0) {
+            ResultUtil.setResult("登出成功", true, r + "", result);
         }else{
-            result.setMessage("fail");
-            result.setSuccess(false);
+            ResultUtil.setResult("登出失败", false, r + "", result);
         }
     }
 
     @Override
-    public void register(String username, String password, BaseResult<UserDTO> result) {
-        User user = new User();
-        user.setUserPassword(MD5Util.getMD5String(password));
-        user.setUserName(username);
+    public void register(String username, String nickname,String password, BaseResult<User> result) {
 
+        User u = userRepository.getUser(username,password);
+        if(u != null){
+            ResultUtil.setResult("账号已存在",false,null,result);
+        }
+
+        User user = new User(username,MD5Util.getMD5String(password),nickname,"offline");
         userRepository.save(user);
-    }
 
+        ResultUtil.setResult(user,result);
+    }
 }

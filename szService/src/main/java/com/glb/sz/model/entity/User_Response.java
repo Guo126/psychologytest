@@ -1,6 +1,6 @@
 package com.glb.sz.model.entity;
 
-import com.glb.sz.model.entity.id.User_Response_ID;
+import com.glb.sz.model.entity.pk.User_Response_ID;
 
 import javax.persistence.*;
 
@@ -11,13 +11,11 @@ public class User_Response {
 
     @Id
     @Column(name = "user_id")
-    private
-    Integer userId;
+    private Integer userId;
 
     @Id
     @Column(name = "response_id")
-    private
-    Integer responseId;
+    private Integer responseId;
 
     public Integer getUserId() {
         return userId;
