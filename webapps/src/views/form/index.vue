@@ -4,7 +4,7 @@
       <el-form-item label="姓名">
         <el-input 
         placeholder="请输入姓名"
-        v-model="form.name"></el-input>
+        v-model="form.nickname"></el-input>
       </el-form-item>
       <el-form-item label="手机号">
         <el-input
@@ -81,11 +81,12 @@
 </template>
 
 <script>
+import { getUserInfo } from "@/api/login";
 export default {
   data() {
     return {
       form: {
-        name: '',
+        nickname: '',
         phone:'',
         code: '',
         mail:'',
@@ -99,7 +100,18 @@ export default {
       }
     }
   },
+  created(){
+    this.fetchUserInfo()
+  },
   methods: {
+    fetchUserInfo(){
+      let userId = 2;
+      getUserInfo(userId).then(response => {
+        if (response.success) {
+          this.form = response.data
+        }
+      })
+    },
     onSubmit() {
       this.$message('保存成功!')
     },

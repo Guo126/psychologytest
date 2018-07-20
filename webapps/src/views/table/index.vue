@@ -1,14 +1,21 @@
 <template>
   <div class="app-container">
     
-    <el-card class="box-card1 ">
-      <div  class="text item ">
-        <img src="" >
+    <el-card class="box-card1 " style="background-color:#A9D0F5">
+      
+      <div  class="text item " style="float:left">
+        
         欢迎您，
         <el-tag>{{name}}</el-tag>
-        </br>
-        选择下方的磁块查看你当前评测进度
+        </br></br>
+           &nbsp;选择下方的磁块查看你当前评测进度
       </div>
+
+      <div style="float:right;">
+        <img style="height:190px;width:300px;margin-top:-15px;margin-right:-19px;" src="646.png" >
+      </div>
+      
+        
     </el-card>
     </br>
     </br>
@@ -16,7 +23,7 @@
      <el-card class="box-card2" style="background-color:#424242 ;float:left">
       
       <div class="text">
-        <img src="152.jpg" class="image" style="float:left">
+        <!-- <img src="" class="image" style="float:left"> -->
         <el-tag>{{mail}}</el-tag>
         </br>
         <el-tag>{{phone}}</el-tag>
@@ -27,26 +34,37 @@
         已完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18" :percentage="70" color="#01DF3A">
+        <el-progress :text-inside="true" :stroke-width="18"  :percentage="mes.percentage1"color="#01DF3A">
         </el-progress>
         </br></br>
-        查看报告
+        <el-button style="float: left; padding: 3px 0" type="text ;color:white" @click="toReport">查看报告</el-button>
+        
       </div>
       
      </el-card>
     
     
      <el-card class="box-card3" style="background-color:#FA5858 ; float:left ">  
-       <el-progress type="circle" :percentage="100" status="success" style=" float:left"></el-progress>
-      <div class="text"  style="color:white">
-      已完成评测
-       
+       <el-progress type="circle" :percentage="mes.percentage1" status="success" style=" float:left"></el-progress>
+      <div class="text"  style="color:white ;float:right; margin-right:40px ">
+        已完成评测
+        </br></br></br>
+         &nbsp; &nbsp; &nbsp;{{mes.percentage1}}%
+         </br></br></br>
+        <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
+
       </div>
      </el-card>
      <el-card class="box-card3" style="background-color:#FFBF00; float:left">
-      <el-progress type="circle" :percentage="50" status="exception" style=" float:left"></el-progress>
-      <div class="text"  style="color:white">
-       未完成评测
+      <el-progress type="circle" :percentage="mes.percentage2" status="exception" style=" float:left"></el-progress>
+      
+      <div class="text"  style="color:white ;float:right; margin-right:40px ">
+          未完成评测 
+         </br></br></br>
+         &nbsp; &nbsp; &nbsp;{{mes.percentage2}}%
+         </br></br></br>
+        <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
+  
       </div>
      </el-card>
     
@@ -56,10 +74,11 @@
         待完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18" :percentage="30" color="#FF0040">
+        <el-progress :text-inside="true" :stroke-width="18" :percentage="mes.percentage2" color="#FF0040">
         </el-progress>
         </br></br>
-        查看报告
+        <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
+        
       </div>
       
      </el-card>
@@ -68,7 +87,7 @@
    
 
 
-   <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+   <!-- <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
           {{scope.$index}}
@@ -100,7 +119,7 @@
           <span>{{scope.row.display_time}}</span>
         </template>
       </el-table-column>
-    </el-table>
+    </el-table> -->
     
   </div>
 </template>
@@ -155,6 +174,8 @@ export default {
       mes:{
           mail:'',
           phone:'',
+          percentage1: 0,
+          percentage2: 0,
       },
       
     }
@@ -188,6 +209,8 @@ export default {
        
         this.list = response.data.items;
         this.listLoading = false
+        this.mes.percentage1 = 40 ;
+        this.mes.percentage2 = 100 - 40 ;
        
         getMes(this.mes).then(response=>{
            this.mes.mail = response.data.mail;
@@ -195,7 +218,15 @@ export default {
 
         })
       })
+    },
+    toReport(){
+      this.$router.push("/example/report");
+    },
+    toTest(){
+      this.$router.push("/example/test")
     }
+    
+
   }
 }
 </script>

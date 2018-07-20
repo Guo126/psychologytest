@@ -70,7 +70,14 @@ export const constantRouterMap = [
         name: 'Report',
         component: () => import('@/views/report/index'),
         meta: { title: '查看报告', icon: 'table' }
-      }
+      },
+      {
+        path: 'details',
+        name: 'Details',
+        component: () => import('@/views/report/details'),
+        meta: { title: '报告详情' },
+        hidden:true
+      },
     ]
   },
 
