@@ -2,9 +2,9 @@ package com.glb.sz.model;
 
 public class BaseResult<T> {
 
-    String message;
-    boolean success;
-    T data;
+    private String message;
+    private boolean success;
+    private T data;
 
     public BaseResult(){
 
