@@ -14,17 +14,18 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
+    private
     QuestionRepository questionRepository;
 
     @Override
     public void getQuestionByPaper(Integer paperId, BaseResult<List<QuestionDTO>> result) {
         List<QuestionDTO> questionDTOList = questionRepository.getQuestionByPaper(paperId);
-        ResultUtil.setResult(questionDTOList,result);
+        ResultUtil.setResult(questionDTOList, result);
     }
 
     @Override
-    public void getAQuestionByPaper(Integer paperId,Integer num, BaseResult<QuestionDTO> result) {
-        QuestionDTO questionDTO = questionRepository.getAQuestionByPaper(paperId,num);
-        ResultUtil.setResult(questionDTO,result);
+    public void getAQuestionByPaper(Integer paperId, Integer num, BaseResult<QuestionDTO> result) {
+        QuestionDTO questionDTO = questionRepository.getAQuestionByPaper(paperId, num);
+        ResultUtil.setResult(questionDTO, result);
     }
 }

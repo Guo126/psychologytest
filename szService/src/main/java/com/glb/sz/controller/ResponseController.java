@@ -19,9 +19,9 @@ public class ResponseController {
     private ResponseService responseService;
 
     @GetMapping("/getResponse")
-    public BaseResult<List<Response>> getResponseByPaper(@RequestParam("paperId") Integer paperId){
+    public BaseResult<List<Response>> getResponseByPaper(@RequestParam("paperId") Integer paperId) {
         BaseResult<List<Response>> result = new BaseResult<>();
-        responseService.getResponseByPaper(paperId,result);
+        responseService.getResponseByPaper(paperId, result);
         return result;
     }
 

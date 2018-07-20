@@ -5,7 +5,7 @@ public class QuestionDTO {
     private String desc;
     private Integer num;
 
-    public QuestionDTO(){
+    public QuestionDTO() {
 
     }
 

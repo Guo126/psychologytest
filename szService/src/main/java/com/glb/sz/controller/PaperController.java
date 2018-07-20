@@ -18,13 +18,11 @@ public class PaperController {
     private PaperService paperService;
 
     @GetMapping("/getPaperList")
-    public BaseResult<List<Paper>> getPaperList(){
+    public BaseResult<List<Paper>> getPaperList() {
         BaseResult<List<Paper>> paperList = new BaseResult<>();
         paperService.getPaperList(paperList);
         return paperList;
     }
-
-
 
 
 }

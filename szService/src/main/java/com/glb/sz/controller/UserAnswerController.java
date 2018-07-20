@@ -20,9 +20,9 @@ public class UserAnswerController {
     private UserAnswerService userAnswerService;
 
     @GetMapping("/responseList")
-    public BaseResult<List<UserAnswerDTO>> getUserAnswerList(@RequestParam("userId") Integer userId){
+    public BaseResult<List<UserAnswerDTO>> getUserAnswerList(@RequestParam("userId") Integer userId) {
         BaseResult<List<UserAnswerDTO>> result = new BaseResult<>();
-        userAnswerService.getUserResponseList(userId,result);
+        userAnswerService.getUserResponseList(userId, result);
         return result;
     }
 

@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ResponseRepository extends JpaRepository<Response,Integer> {
+public interface ResponseRepository extends JpaRepository<Response, Integer> {
 
-    @Query(value = "select * from response where paper_id=?1",nativeQuery = true)
+    @Query(value = "select * from response where paper_id=?1", nativeQuery = true)
     List<Response> getResponseByPaper(Integer paperId);
 }

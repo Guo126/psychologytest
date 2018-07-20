@@ -20,17 +20,17 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/questionList")
-    public BaseResult<List<QuestionDTO>> getQuestionList(@RequestParam("paperId") Integer paperId){
+    public BaseResult<List<QuestionDTO>> getQuestionList(@RequestParam("paperId") Integer paperId) {
         BaseResult<List<QuestionDTO>> result = new BaseResult<>();
-        questionService.getQuestionByPaper(paperId,result);
+        questionService.getQuestionByPaper(paperId, result);
         return result;
     }
 
     @GetMapping("/aQuestion")
     public BaseResult<QuestionDTO> getAQuestion(@RequestParam("paperId") Integer paperId,
-                                                @RequestParam("numId") Integer numId){
+                                                @RequestParam("numId") Integer numId) {
         BaseResult<QuestionDTO> result = new BaseResult<>();
-        questionService.getAQuestionByPaper(paperId,numId,result);
+        questionService.getAQuestionByPaper(paperId, numId, result);
         return result;
     }
 

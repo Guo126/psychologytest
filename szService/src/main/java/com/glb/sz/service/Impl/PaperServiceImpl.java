@@ -19,6 +19,6 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public void getPaperList(BaseResult<List<Paper>> result) {
         List<Paper> paperList = paperRepository.getPaperList();
-        ResultUtil.setResult(paperList,result);
+        ResultUtil.setResult(paperList, result);
     }
 }

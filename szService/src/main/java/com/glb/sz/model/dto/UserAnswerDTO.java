@@ -6,7 +6,7 @@ public class UserAnswerDTO {
     private String responseDesc;
     private String paperDesc;
 
-    public UserAnswerDTO(){
+    public UserAnswerDTO() {
 
     }
 

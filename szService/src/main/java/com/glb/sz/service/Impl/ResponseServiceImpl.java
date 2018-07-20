@@ -19,6 +19,6 @@ public class ResponseServiceImpl implements ResponseService {
     @Override
     public void getResponseByPaper(Integer paperId, BaseResult<List<Response>> result) {
         List<Response> responseList = responseRepository.getResponseByPaper(paperId);
-        ResultUtil.setResult(responseList,result);
+        ResultUtil.setResult(responseList, result);
     }
 }
