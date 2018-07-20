@@ -1,9 +1,12 @@
 package com.glb.sz.Repository;
 
+import com.glb.sz.model.dto.UserAnswerDTO;
 import com.glb.sz.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
 
@@ -25,4 +28,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     int logout(Integer userId);
 
 
+    @Query("select new com.glb.sz.model.dto.UserAnswerDTO(u.nickname,r.responseDesc,p.paperDesc) " +
+            "from Paper p,Response r,User u,User_Response ur " +
+            "where u.userId=?1 and ur.userId=u.userId and ur.responseId=r.responseId and r.paperId=p.paperId")
+    List<UserAnswerDTO> getUserResponseList(Integer userId);
 }

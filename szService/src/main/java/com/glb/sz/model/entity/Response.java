@@ -1,5 +1,7 @@
 package com.glb.sz.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,7 @@ public class Response {
     String responseDesc;
 
     @Column(name = "paper_id")
+    @JsonIgnore
     private
     Integer paperId;
 

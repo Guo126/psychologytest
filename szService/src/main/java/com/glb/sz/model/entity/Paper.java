@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "paper")
 public class Paper {
 
-
     @Id
     @GeneratedValue
     @Column(name = "paper_id")
