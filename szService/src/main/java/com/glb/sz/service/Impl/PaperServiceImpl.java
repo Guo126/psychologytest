@@ -6,9 +6,11 @@ import com.glb.sz.model.entity.Paper;
 import com.glb.sz.service.PaperService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PaperServiceImpl implements PaperService {
 
     @Autowired
