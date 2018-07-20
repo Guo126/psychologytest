@@ -20,14 +20,14 @@ public class Question {
     Integer paperId;
 
     @Column(name = "question_num")
-    private Integer quesionNum;
+    private Integer questionNum;
 
-    public Integer getQuesionNum() {
-        return quesionNum;
+    public Integer getQuestionNum() {
+        return questionNum;
     }
 
-    public void setQuesionNum(Integer quesionNum) {
-        this.quesionNum = quesionNum;
+    public void setQuestionNum(Integer questionNum) {
+        this.questionNum = questionNum;
     }
 
     public Integer getQuestionId() {
