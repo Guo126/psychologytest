@@ -23,6 +23,9 @@ public class Response {
     private
     Integer paperId;
 
+    @Column(name = "response_url")
+    private String responseUrl;
+
     public Response(){
 
     }
@@ -31,6 +34,14 @@ public class Response {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.paperId = paperId;
+    }
+
+    public String getResponseUrl() {
+        return responseUrl;
+    }
+
+    public void setResponseUrl(String responseUrl) {
+        this.responseUrl = responseUrl;
     }
 
     public Integer getResponseId() {
