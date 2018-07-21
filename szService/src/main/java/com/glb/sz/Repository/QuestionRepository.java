@@ -17,4 +17,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             "where q.paperId=?1 and q.questionNum=?2")
     QuestionDTO getAQuestionByPaper(Integer paperId, Integer questionNum);
 
+    @Query(value = "select count(q.question_id) from paper p,question q where p.paper_id=?1 and q.paper_id=p.paper_id",nativeQuery = true)
+    Integer getQuestionCount(Integer paperId);
+
 }

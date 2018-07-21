@@ -2,6 +2,7 @@ package com.glb.sz.service.Impl;
 
 import com.glb.sz.Repository.QuestionRepository;
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.dto.PaperDTO;
 import com.glb.sz.model.dto.QuestionDTO;
 import com.glb.sz.service.QuestionService;
 import com.glb.sz.util.ResultUtil;
@@ -27,5 +28,11 @@ public class QuestionServiceImpl implements QuestionService {
     public void getAQuestionByPaper(Integer paperId, Integer num, BaseResult<QuestionDTO> result) {
         QuestionDTO questionDTO = questionRepository.getAQuestionByPaper(paperId, num);
         ResultUtil.setResult(questionDTO, result);
+    }
+
+    @Override
+    public void getQuestionCount(Integer paperId, BaseResult<Integer> result) {
+        Integer count = questionRepository.getQuestionCount(paperId);
+        ResultUtil.setResult(count,result);
     }
 }
