@@ -9,7 +9,7 @@ public class PaperDTO {
     private List<Paper> paperList;
     private Integer coount;
 
-    public PaperDTO(){
+    public PaperDTO() {
 
     }
 

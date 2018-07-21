@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -27,24 +26,24 @@ public class UserController {
 
     @GetMapping("/getUser")
     public BaseResult<User> getUser(@RequestParam("username") String username,
-                                    @RequestParam("password") String password){
+                                    @RequestParam("password") String password) {
 
         BaseResult<User> result = ResultUtil.buildResult();
-        userService.getUser(username,password,result);
+        userService.getUser(username, password, result);
         return result;
     }
 
     @PostMapping("/login")
-    public BaseResult<User> login(@RequestParam("userId") Integer userId){
+    public BaseResult<User> login(@RequestParam("userId") Integer userId) {
         BaseResult<User> result = ResultUtil.buildResult();
-        userService.login(userId,result);
+        userService.login(userId, result);
         return result;
     }
 
     @PostMapping("/logout")
-    private BaseResult<Object> logout(@RequestParam("userId") Integer userId){
+    private BaseResult<Object> logout(@RequestParam("userId") Integer userId) {
         BaseResult<Object> result = ResultUtil.buildResult();
-        userService.logout(userId,result);
+        userService.logout(userId, result);
         return result;
     }
 
