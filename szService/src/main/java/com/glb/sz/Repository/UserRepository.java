@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 
     @Query("select new com.glb.sz.model.dto.UserAnswerDTO(u.nickname,r.responseDesc,p.paperDesc) " +
-            "from Paper p,Response r,User u,User_Response ur " +
-            "where u.userId=?1 and ur.userId=u.userId and ur.responseId=r.responseId and r.paperId=p.paperId")
+            "from Paper p,Response r,User u,Score s " +
+            "where u.userId=?1 and s.userId=u.userId and s.responseId=r.responseId and r.paperId=p.paperId")
     List<UserAnswerDTO> getUserResponseList(Integer userId);
 }
