@@ -22,6 +22,16 @@ public class Score {
     @Column(name = "score")
     private Integer score;
 
+    public Score(){
+
+    }
+
+    public Score(Integer userId, Integer responseId, Integer score) {
+        this.userId = userId;
+        this.responseId = responseId;
+        this.score = score;
+    }
+
     public Integer getUserId() {
         return userId;
     }

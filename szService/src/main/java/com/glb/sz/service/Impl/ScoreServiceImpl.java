@@ -27,4 +27,10 @@ public class ScoreServiceImpl implements ScoreService {
         Score score = scoreRepository.getUserScore(userId,responseId);
         ResultUtil.setResult(score,result);
     }
+
+    @Override
+    public void setUserScore(Score score, BaseResult<Object> result) {
+        scoreRepository.save(score);
+        ResultUtil.setResult("保存成功",true,null,result);
+    }
 }
