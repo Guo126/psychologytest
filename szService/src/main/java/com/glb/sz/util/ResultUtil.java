@@ -4,8 +4,10 @@ import com.glb.sz.model.BaseResult;
 
 public class ResultUtil {
 
-    public static <T> BaseResult<T> buildResult(){
-        return new BaseResult<>();
+    public static <T> BaseResult<T> buildResult(IResultBuilder<T> builder){
+        BaseResult<T> baseResult = new BaseResult<>();
+        builder.buildResult(baseResult);
+        return baseResult;
     }
 
 

@@ -1,21 +1,26 @@
 package com.glb.sz.model.entity;
 
-import com.glb.sz.model.entity.pk.User_Response_ID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.glb.sz.model.entity.pk.Score_ID;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_response")
-@IdClass(User_Response_ID.class)
-public class User_Response {
+@Table(name = "score")
+@IdClass(Score_ID.class)
+public class Score {
 
     @Id
     @Column(name = "user_id")
+    @JsonIgnore
     private Integer userId;
-
     @Id
     @Column(name = "response_id")
     private Integer responseId;
+    @Column(name = "score")
+    private Integer score;
 
     public Integer getUserId() {
         return userId;
@@ -31,5 +36,13 @@ public class User_Response {
 
     public void setResponseId(Integer responseId) {
         this.responseId = responseId;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

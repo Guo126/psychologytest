@@ -19,32 +19,23 @@ public class UserController {
     public BaseResult<User> register(@RequestParam("username") String username,
                                      @RequestParam("nickname") String nickname,
                                      @RequestParam("password") String password) {
-        BaseResult<User> result = ResultUtil.buildResult();
-        userService.register(username, nickname, password, result);
-        return result;
+        return ResultUtil.buildResult(result -> userService.register(username,nickname,password,result));
     }
 
     @GetMapping("/getUser")
     public BaseResult<User> getUser(@RequestParam("username") String username,
                                     @RequestParam("password") String password) {
-
-        BaseResult<User> result = ResultUtil.buildResult();
-        userService.getUser(username, password, result);
-        return result;
+        return ResultUtil.buildResult(result -> userService.getUser(username,password,result));
     }
 
     @PostMapping("/login")
     public BaseResult<User> login(@RequestParam("userId") Integer userId) {
-        BaseResult<User> result = ResultUtil.buildResult();
-        userService.login(userId, result);
-        return result;
+        return ResultUtil.buildResult(result -> userService.login(userId,result));
     }
 
     @PostMapping("/logout")
     private BaseResult<Object> logout(@RequestParam("userId") Integer userId) {
-        BaseResult<Object> result = ResultUtil.buildResult();
-        userService.logout(userId, result);
-        return result;
+        return ResultUtil.buildResult(result -> userService.logout(userId,result));
     }
 
 }

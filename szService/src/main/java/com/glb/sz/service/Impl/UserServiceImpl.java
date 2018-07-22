@@ -3,6 +3,7 @@ package com.glb.sz.service.Impl;
 
 import com.glb.sz.Repository.UserRepository;
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.dto.UserMessageDTO;
 import com.glb.sz.model.entity.User;
 import com.glb.sz.service.UserService;
 import com.glb.sz.util.MD5Util;
@@ -67,5 +68,15 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         ResultUtil.setResult(user, result);
+    }
+
+    @Override
+    public void changeUserMessage(Integer userId, UserMessageDTO userMessageDTO, BaseResult<User> result) {
+        User user = userRepository.getUser(userId);
+        if(user == null){
+            ResultUtil.setResult("该用户不存在",false,null,result);
+        }
+
+
     }
 }
