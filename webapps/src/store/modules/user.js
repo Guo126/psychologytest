@@ -33,6 +33,9 @@ const user = {
         login(username, userInfo.password).then(response => {
           const data = response.data
           Cookie.set('userId',data.userId)
+          Cookie.set('userNick',data.nickname)
+          Cookie.set('userPhone',data.phone)
+          Cookie.set('userName',data.username)
           setToken(data.token)
           commit('SET_TOKEN', data.token)
           resolve()
@@ -62,8 +65,11 @@ const user = {
     },
 
     // 登出
-    LogOut({ commit},userId) {
+    LogOut({commit},userId) {
       return new Promise((resolve, reject) => {
+        
+        
+
         logout(userId).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])

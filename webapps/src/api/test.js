@@ -6,4 +6,23 @@ export function getPaper(){
         method:'get',   
 
     })
+
+}
+
+
+export function getQuestion(paperId,numId){
+    return request({
+        url:'/question/aQuestion',
+        method: 'get',
+        params: {paperId ,numId}
+    })
+}
+
+export function getCount(paperId){
+    return request({
+        url:'/question/paperCount',
+        method:'get',
+        params: {paperId}
+    })
+
 }

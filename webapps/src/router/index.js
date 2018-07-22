@@ -94,6 +94,28 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/admin',
+    component:Layout,  
+    meta: { title: '管理员', icon: 'example' },  
+    children:[
+      {
+        path: 'userMes',
+        name: 'Usermes',
+        
+        component: () => import('@/views/admin/userMes'),
+        meta: { title: '用户管理', icon: 'example' },
+        
+      },
+      {
+        path: 'papers',
+        name: 'Papers',     
+        component: () => import('@/views/admin/papers'),
+        meta: { title: '试题管理', icon: 'example' },
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 

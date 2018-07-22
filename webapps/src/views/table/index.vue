@@ -5,9 +5,9 @@
       
       <div  class="text item " style="float:left">
         
-        欢迎您，
-        <el-tag>{{name}}</el-tag>
-        </br></br>
+        &nbsp;欢迎您，
+        <el-tag>{{username}}</el-tag>
+        </br></br></br>
            &nbsp;选择下方的磁块查看你当前评测进度
       </div>
 
@@ -22,11 +22,12 @@
     
      <el-card class="box-card2" style="background-color:#424242 ;float:left">
       
-      <div class="text">
+      <div class="text" style="color: white">
         <!-- <img src="" class="image" style="float:left"> -->
-        <el-tag>{{mail}}</el-tag>
-        </br>
-        <el-tag>{{phone}}</el-tag>
+        <span class = "el-icon-message"> &nbsp;&nbsp;<el-tag >{{mail}}</el-tag>  </span>
+        </br></br>
+        <span class = "el-icon-phone"> &nbsp;&nbsp;<el-tag >{{phone}}</el-tag>  </span>
+        
       </div>
      </el-card>
      <el-card class="box-card2" style="background-color:#0080FF ;float:right">
@@ -34,7 +35,7 @@
         已完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18"  :percentage="mes.percentage1"color="#01DF3A">
+        <el-progress :text-inside="true" :stroke-width="18"  :percentage="60" color="#01DF3A">
         </el-progress>
         </br></br>
         <el-button style="float: left; padding: 3px 0" type="text ;color:white" @click="toReport">查看报告</el-button>
@@ -45,23 +46,23 @@
     
     
      <el-card class="box-card3" style="background-color:#FA5858 ; float:left ">  
-       <el-progress type="circle" :percentage="mes.percentage1" status="success" style=" float:left"></el-progress>
+       <el-progress type="circle" :percentage="40" status="success" style=" float:left"></el-progress>
       <div class="text"  style="color:white ;float:right; margin-right:40px ">
         已完成评测
         </br></br></br>
-         &nbsp; &nbsp; &nbsp;{{mes.percentage1}}%
+         &nbsp; &nbsp; &nbsp;40%
          </br></br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
 
       </div>
      </el-card>
      <el-card class="box-card3" style="background-color:#FFBF00; float:left">
-      <el-progress type="circle" :percentage="mes.percentage2" status="exception" style=" float:left"></el-progress>
+      <el-progress type="circle" :percentage="60" status="exception" style=" float:left"></el-progress>
       
       <div class="text"  style="color:white ;float:right; margin-right:40px ">
           未完成评测 
          </br></br></br>
-         &nbsp; &nbsp; &nbsp;{{mes.percentage2}}%
+         &nbsp; &nbsp; &nbsp;60%
          </br></br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
   
@@ -74,7 +75,7 @@
         待完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18" :percentage="mes.percentage2" color="#FF0040">
+        <el-progress :text-inside="true" :stroke-width="18" :percentage="40" color="#FF0040">
         </el-progress>
         </br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
@@ -82,55 +83,15 @@
       </div>
       
      </el-card>
-
   
-   
-
-
-   <!-- <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
-        <template slot-scope="scope">
-          {{scope.$index}}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{scope.row.title}}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.author}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{scope.row.pageviews}}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span>{{scope.row.display_time}}</span>
-        </template>
-      </el-table-column>
-    </el-table> -->
-    
   </div>
 </template>
 
 
 <style>
   .image{
-    width:100px;  height:100px;
-    
+    width:100px;  height:100px;   
     display: block;
-  
 
   }
   .text {
@@ -164,19 +125,19 @@
 
 import { getList } from '@/api/table'
 import { mapGetters } from 'vuex'
+import Cookie from 'js-cookie'
 
 export default {
   data() {
     return {
+      userId:undefined,
       list: null,
       listLoading: true,
       username:'',
-      mes:{
-          mail:'',
-          phone:'',
-          percentage1: 0,
-          percentage2: 0,
-      },
+      mail:'',
+      phone:'',
+      
+      
       
     }
   },
@@ -191,6 +152,10 @@ export default {
     }
   },
   created() {
+    this.userId = Cookie.get("userId");
+    this.username = Cookie.get("userName");
+    this.phone = Cookie.get("userPhone");
+    this.mail = Cookie.get("userPhone");
     this.fetchData()
   },
   computed:{
@@ -204,19 +169,11 @@ export default {
     fetchData() {
         this.listLoading = true;
         getList(this.listQuery).then(response => {
-         
-        this.username = response.data.items[0].author;
        
         this.list = response.data.items;
         this.listLoading = false
-        this.mes.percentage1 = 40 ;
-        this.mes.percentage2 = 100 - 40 ;
        
-        getMes(this.mes).then(response=>{
-           this.mes.mail = response.data.mail;
-           this.mes.phone = response.data.phone;
-
-        })
+      
       })
     },
     toReport(){
