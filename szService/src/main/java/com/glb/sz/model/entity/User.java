@@ -35,6 +35,9 @@ public class User {
     @Column(name = "token")
     private String token;
 
+    @Column(name = "user_level")
+    private Integer userLevel;
+
     public User(){
 
     }

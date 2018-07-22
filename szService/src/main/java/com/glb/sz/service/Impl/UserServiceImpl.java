@@ -8,6 +8,7 @@ import com.glb.sz.model.entity.User;
 import com.glb.sz.service.UserService;
 import com.glb.sz.util.MD5Util;
 import com.glb.sz.util.ResultUtil;
+import com.glb.sz.util.UpdateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,8 +76,16 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getUser(userId);
         if(user == null){
             ResultUtil.setResult("该用户不存在",false,null,result);
+            return;
         }
 
-
+        user = UpdateUtil.updateAObj(user,userMessageDTO.toString());
+        if(user == null){
+            ResultUtil.setResult("用户保存失败",false,null,result);
+            return;
+        }
+        
+        userRepository.save(user);
+        ResultUtil.setResult("用户保存成功",true,user,result);
     }
 }

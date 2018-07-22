@@ -1,6 +1,7 @@
 package com.glb.sz.controller;
 
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.dto.UserMessageDTO;
 import com.glb.sz.model.entity.User;
 import com.glb.sz.service.UserService;
 import com.glb.sz.util.ResultUtil;
@@ -34,8 +35,13 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    private BaseResult<Object> logout(@RequestParam("userId") Integer userId) {
+    public BaseResult<Object> logout(@RequestParam("userId") Integer userId) {
         return ResultUtil.buildResult(result -> userService.logout(userId,result));
     }
 
+    @PostMapping("/change")
+    public BaseResult<User> changeUserMessage(@RequestParam("userId") Integer userId,
+                                              @RequestBody UserMessageDTO userMessageDTO){
+        return ResultUtil.buildResult(result -> userService.changeUserMessage(userId,userMessageDTO,result));
+    }
 }
