@@ -25,6 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     String getToken(String username, String password);
 
     @Query(value = "update user set token='NotOnline' where user_id=?1", nativeQuery = true)
+    @Modifying
     int logout(Integer userId);
 
 
