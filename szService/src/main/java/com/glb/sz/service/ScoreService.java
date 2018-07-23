@@ -9,4 +9,5 @@ public interface ScoreService {
 
     void getUserAllScore(Integer userId, BaseResult<List<Score>> result);
     void getUSerScore(Integer userId,Integer responseId,BaseResult<Score> result);
+    void setUserScore(Score score,BaseResult<Object> result);
 }

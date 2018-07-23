@@ -21,4 +21,10 @@ public class ResponseServiceImpl implements ResponseService {
         List<Response> responseList = responseRepository.getResponseByPaper(paperId);
         ResultUtil.setResult(responseList, result);
     }
+
+    @Override
+    public void getResponseByScore(Integer paperId, Integer score, BaseResult<Response> result) {
+        Response response = responseRepository.getResponse(paperId,score);
+        ResultUtil.setResult(response,result);
+    }
 }
