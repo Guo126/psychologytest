@@ -23,8 +23,9 @@ public class Response {
     private
     Integer paperId;
 
-    @Column(name = "response_url")
-    private String responseUrl;
+    @Column(name = "score_min")
+    @JsonIgnore
+    private Integer scoreMin;
 
     public Response(){
 
@@ -36,12 +37,12 @@ public class Response {
         this.paperId = paperId;
     }
 
-    public String getResponseUrl() {
-        return responseUrl;
+    public Integer getScoreMin() {
+        return scoreMin;
     }
 
-    public void setResponseUrl(String responseUrl) {
-        this.responseUrl = responseUrl;
+    public void setScoreMin(Integer scoreMin) {
+        this.scoreMin = scoreMin;
     }
 
     public Integer getResponseId() {

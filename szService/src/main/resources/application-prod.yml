@@ -3,3 +3,8 @@ server:
   servlet:
     context-path: /psycholog
 
+
+#文件虚拟路径
+ResourcePath: F:\Workspace\GitRepository\psychologytest\szService\res\
+#getResourcePath: http:101.132.161.199:8848/psycholog/img/
+getResourcePath: http:localhost:8848/psycholog/img/
