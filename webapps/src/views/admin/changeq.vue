@@ -4,19 +4,19 @@
         <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>
      &nbsp;&nbsp;&nbsp;
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
-        <el-button type="primary" icon="el-icon-plus" style="float:right" @click="addPaper()">添加</el-button> 
+        <el-button type="primary" icon="el-icon-plus" style="float:right">添加</el-button> 
         <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px'}">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
         <div style="padding: 14px;">
           <span>{{o.paperDesc}}</span>
           <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button" @click="changePaper(o.paperId)">&nbsp;&nbsp;修改试卷 &nbsp;&nbsp;</el-button>
+          
+            
             &nbsp;&nbsp;
             <el-button type="text" class="button" @click="changeQuestion(o.paperId)">修改试题&nbsp;&nbsp;</el-button>
            
-            <el-button type="text" class="button" @click="changeResponse(o.paperId)">修改报告&nbsp;&nbsp;</el-button>
+            
           </div>
         </div>
         
@@ -74,18 +74,11 @@ export default {
          }
       })
     },
-    addPaper(){
-        this.$router.push("/admin/addp")
-    },
-    changePaper(){
-        this.$router.push("/admin/changep");
-    },
+   
     changeQuestion(){
-        this.$router.push("/admin/changeq");
+        this.$router.push("/admin/changequestion");
     },
-    changeResponse(){
-        this.$router.push("/admin/changer");
-    },
+   
 
 
     handleDispatchSepcific(nowTestId){

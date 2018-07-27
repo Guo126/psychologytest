@@ -112,7 +112,51 @@ export const constantRouterMap = [
         name: 'Papers',     
         component: () => import('@/views/admin/papers'),
         meta: { title: '试题管理', icon: 'example' },
-      }
+        
+      },
+      {
+        path: 'changep',
+        name: 'changep',     
+        component: () => import('@/views/admin/changep'),
+        meta: { title: '修改试卷', icon: 'example' },
+        hidden :true
+      },
+      {
+        path: 'changeq',
+        name: 'changeq',     
+        component: () => import('@/views/admin/changeq'),
+        meta: { title: '修改题目', icon: 'example' },
+        hidden :true
+      },
+      {
+        path: 'changequestion',
+        name: 'changeq',     
+        component: () => import('@/views/admin/changequestion'),
+        meta: { title: '修改题目', icon: 'example' },
+        hidden :true
+      },
+      {
+        path: 'changer',
+        name: 'changer',     
+        component: () => import('@/views/admin/changer'),
+        meta: { title: '修改报告', icon: 'example' },
+        hidden :true
+      },
+      {
+        path: 'changeresponse',
+        name: 'changer',     
+        component: () => import('@/views/admin/changeresponse'),
+        meta: { title: '修改报告', icon: 'example' },
+        hidden :true
+      },
+      {
+        path: 'addp',
+        name: 'addp',     
+        component: () => import('@/views/admin/addp'),
+        meta: { title: '添加试卷', icon: 'example' },
+        hidden :true
+      },
+     
     ]
   },
 
