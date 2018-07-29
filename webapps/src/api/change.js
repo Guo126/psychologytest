@@ -9,3 +9,11 @@ export function getQues(paperId){
                 
    })
 }
+
+export function getRes(paperId){
+    return request({
+        url:'/response/getResponse',
+        method:'get',
+        params:{paperId}
+    })
+}

@@ -4,16 +4,23 @@
         <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>
      &nbsp;&nbsp;&nbsp;
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
-        <el-button type="primary" icon="el-icon-plus" style="float:right" @click="addPaper()">添加</el-button> 
+        <div style="float:right">
+        <el-button type="primary" icon="el-icon-plus"  @click="addPaper()">添加</el-button> 
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="onCancel">退出</el-button>
+        </div>
         </br></br></br>
         <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px'}">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
         <div style="padding: 14px;">
-          <span>{{o.paperDesc}}</span>
+          <el-input v-model="o.paperDesc" > </el-input>
+          
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button" @click="changePaper(o.paperId)">&nbsp;&nbsp;修改试卷 &nbsp;&nbsp;</el-button>
+              
+             <el-button slot="reference" type="text" class="button" >&nbsp;&nbsp;删除试卷 &nbsp;&nbsp;</el-button>
+           
             &nbsp;&nbsp;
             <el-button type="text" class="button" @click="changeQuestion(o.paperId)">修改试题&nbsp;&nbsp;</el-button>
            
