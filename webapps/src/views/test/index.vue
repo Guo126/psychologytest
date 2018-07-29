@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     
-      <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px' }"  :style="{'background-color':colors[index%3] }">
+      <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px' }"  :style="{'background-color':colors[index%3] }" style="margin-top:6px">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
         <div style="padding: 14px;">

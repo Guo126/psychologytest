@@ -121,13 +121,7 @@ export const constantRouterMap = [
         meta: { title: '修改试卷', icon: 'example' },
         hidden :true
       },
-      {
-        path: 'changeq',
-        name: 'changeq',     
-        component: () => import('@/views/admin/changeq'),
-        meta: { title: '修改题目', icon: 'example' },
-        hidden :true
-      },
+      
       {
         path: 'changequestion',
         name: 'changeq',     
@@ -135,13 +129,7 @@ export const constantRouterMap = [
         meta: { title: '修改题目', icon: 'example' },
         hidden :true
       },
-      {
-        path: 'changer',
-        name: 'changer',     
-        component: () => import('@/views/admin/changer'),
-        meta: { title: '修改报告', icon: 'example' },
-        hidden :true
-      },
+      
       {
         path: 'changeresponse',
         name: 'changer',     

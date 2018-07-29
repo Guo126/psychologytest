@@ -5,6 +5,7 @@
      &nbsp;&nbsp;&nbsp;
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
         <el-button type="primary" icon="el-icon-plus" style="float:right" @click="addPaper()">添加</el-button> 
+        </br></br></br>
         <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px'}">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
@@ -75,16 +76,16 @@ export default {
       })
     },
     addPaper(){
-        this.$router.push("/admin/addp")
+        this.$router.push('/admin/addp')
     },
-    changePaper(){
-        this.$router.push("/admin/changep");
+    changePaper(nowTestId){
+        this.$router.push('/admin/changep?testId='+nowTestId);
     },
-    changeQuestion(){
-        this.$router.push("/admin/changeq");
+    changeQuestion(nowTestId){
+        this.$router.push('/admin/changequestion?testId='+nowTestId);
     },
-    changeResponse(){
-        this.$router.push("/admin/changer");
+    changeResponse(nowTestId){
+        this.$router.push('/admin/changeresponse?testId='+nowTestId);
     },
 
 

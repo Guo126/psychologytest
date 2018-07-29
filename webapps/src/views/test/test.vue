@@ -3,7 +3,7 @@
        <div class="app-container" >
            </br> </br> 
             <el-progress :percentage="per" ></el-progress>
-        <el-card  shadow="hover" class="box-card" v-show="show">          
+        <el-card  shadow="hover" class="box-card" :v-show="show">          
             <span>第{{num}}题</span>
             </br></br>
             <div  class="text item"   v-loading="loading">
@@ -20,7 +20,7 @@
                 show-stops>
                 </el-slider>
                 </br></br></br>
-                <el-button style="float: right; padding: 3px 0" type="text" @click = "nextQuestion">下一题</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text"  @click = "nextQuestion">下一题</el-button>
                 </br>
             </div>
   
@@ -81,12 +81,14 @@ import {getCount} from "@/api/test";
             },
             nextQuestion(){
                 if(this.num==this.maxnum){
-                    this.show = "false"
-
+                    alert("       您已完成测评,点击返回首页 "  )
+                    this.$router.push('/example/table')
                 }else{
                     this.num++;
                     this.getQuestions()
                     this.score += this.answer
+                    
+                    
                 }
                 
                 

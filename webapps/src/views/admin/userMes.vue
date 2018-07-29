@@ -4,6 +4,7 @@
      <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>
      &nbsp;&nbsp;&nbsp;
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
+     </br></br></br>
   <el-table 
     :data="tableData"
     border
