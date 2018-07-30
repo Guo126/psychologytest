@@ -24,7 +24,7 @@ public class PaperController {
         paperService.getPaperList(paperList);
         return paperList;
     }
-    
+
     @GetMapping("/getPaper")
     public BaseResult<Page<Paper>> getPaperList(@RequestParam("page") Integer page,
                                                 @RequestParam("pageSize") Integer pageSize){
