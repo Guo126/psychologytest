@@ -1,6 +1,7 @@
 package com.glb.sz.controller;
 
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.model.entity.ResponseImg;
@@ -52,5 +53,22 @@ public class ResponseController {
         return ResultUtil.buildBaseResult(result -> responseService.getResponseDetail(paperId,result));
     }
 
+    @PostMapping("/delete")
+    public ModifyResult deleteResponse(@RequestParam("responseId") Integer responseId){
+        return ResultUtil.buildModifyResult(result -> responseService.deleteResponse(responseId,result));
+    }
+
+    @PostMapping("/reset")
+    public ModifyResult resetResponse(@RequestParam("responseId") Integer responseId,
+                                      @RequestParam("responseDesc") String responseDesc){
+        return ResultUtil.buildModifyResult(result -> responseService.resetResponse(responseId,responseDesc,result));
+    }
+
+    @PostMapping("/add")
+    public ModifyResult addResponse(@RequestParam("responseDesc") String responseDesc,
+                                    @RequestParam("paperId") Integer paperId,
+                                    @RequestParam("minScore") Integer minScore){
+        return ResultUtil.buildModifyResult(result -> responseService.addResponse(responseDesc,minScore,paperId,result));
+    }
 
 }

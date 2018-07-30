@@ -27,14 +27,33 @@ public class Response {
     @JsonIgnore
     private Integer scoreMin;
 
+    @Column(name = "state_id")
+    @JsonIgnore
+    private Integer stateId;
+
     public Response(){
 
+    }
+
+    public Response(String responseDesc, Integer paperId, Integer scoreMin, Integer stateId) {
+        this.responseDesc = responseDesc;
+        this.paperId = paperId;
+        this.scoreMin = scoreMin;
+        this.stateId = stateId;
     }
 
     public Response(Integer responseId, String responseDesc, Integer paperId) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.paperId = paperId;
+    }
+
+    public Integer getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Integer stateId) {
+        this.stateId = stateId;
     }
 
     public Integer getScoreMin() {
