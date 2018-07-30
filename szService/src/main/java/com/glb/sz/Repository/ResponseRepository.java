@@ -14,9 +14,9 @@ public interface ResponseRepository extends JpaRepository<Response, Integer> {
     List<Response> getResponseByPaper(Integer paperId);
 
     @Query(value = "select * from response as r where r.state_id=1 and r.paper_id=?1 and r.score_min=(" +
-            "select max(r1.score_limit) " +
-            "from response as r1 " +
-            "where r1.score_min<?2 and state_id=1)",nativeQuery = true)
+            "select max(r1.score_min) " +
+            "from response as r1,response as r2" +
+            "where (r1.score_min<?2 and r2.score_min=?2) and r1.response_id=r2.responseId)",nativeQuery = true)
     Response getResponse(Integer paperId,Integer score);
 
 
