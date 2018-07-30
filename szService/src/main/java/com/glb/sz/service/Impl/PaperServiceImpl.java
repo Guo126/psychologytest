@@ -7,6 +7,8 @@ import com.glb.sz.model.entity.Paper;
 import com.glb.sz.service.PaperService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,12 @@ public class PaperServiceImpl implements PaperService {
 
     @Autowired
     private PaperRepository paperRepository;
+
+    @Override
+    public void getPaperList(Integer page,Integer pageSize, BaseResult<Page<Paper>> result) {
+        PageRequest pageRequest = PageRequest.of(page,pageSize);
+        ResultUtil.setBaseResult(paperRepository.findAll(pageRequest),result);
+    }
 
     @Override
     public void getPaperList(BaseResult<List<Paper>> result) {

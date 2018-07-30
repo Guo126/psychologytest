@@ -6,6 +6,7 @@ import com.glb.sz.model.entity.Paper;
 import com.glb.sz.service.PaperService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public class PaperController {
         BaseResult<List<Paper>> paperList = new BaseResult<>();
         paperService.getPaperList(paperList);
         return paperList;
+    }
+    
+    @GetMapping("/getPaper")
+    public BaseResult<Page<Paper>> getPaperList(@RequestParam("page") Integer page,
+                                                @RequestParam("pageSize") Integer pageSize){
+        return ResultUtil.buildBaseResult(result -> paperService.getPaperList(page,pageSize,result));
     }
 
     @PostMapping("/rename")
