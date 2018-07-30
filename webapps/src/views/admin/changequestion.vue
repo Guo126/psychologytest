@@ -4,20 +4,29 @@
             &nbsp;&nbsp;&nbsp;
         <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>
      &nbsp;&nbsp;&nbsp;
-     <el-button type="primary" icon="el-icon-search">搜索</el-button> 
-        <el-button type="primary" icon="el-icon-plus" style="float:right" @click="addPaper()">添加</el-button> 
+        <el-button type="primary" icon="el-icon-search">搜索</el-button> 
+        <div style="float:right">
+        <el-button type="primary" icon="el-icon-plus"  @click="addPaper()">添加</el-button> 
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="onCancel">退出</el-button>
+        </div>
         </br></br></br>
-        <el-card   v-for="o in list" :key="o.questionId" shadow="hover" :body-style="{ padding: '10px'  }" style="background-color:#E0ECF8 ; margin-top:6px" >          
-            <span>第{{o.num}}题</span>
+         <el-card  v-for="(o,index) in list" :key="o.num" :body-style="{ padding: '20px'}" style="background-color:#E0ECF8 ; margin-top:6px">
+        <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
+        <div style="padding: 14px;">
+             <span>第{{o.num}}题</span>
             </br></br>
-            <el-input    v-loading="loading"  v-model="o.desc">
-                &nbsp;&nbsp;&nbsp;&nbsp;{{o.desc}}
-            </el-input>
-            </br></br>
-            <div class="block">             
-            </div>
-  
-        </el-card>   
+          <el-input v-model="o.desc" > </el-input>
+          
+          <div class="bottom clearfix">
+            <time class="time">{{ currentDate }}</time>
+              
+             
+          </div>
+        </div>
+        
+      </el-card>
+         
 
         <div class="block" style=" margin-left:36% ; margin-top:100px">
             <span class="demonstration"></span>
@@ -30,15 +39,17 @@
             :total="list.length">
             </el-pagination>
         </div>    
+        
+      
     </div>
     
 </template>
 
 <script>
 import {getQues} from "@/api/change";
-import {getQuestion} from "@/api/test" ;
+
 import urls from "urls-js";
-import {getCount} from "@/api/test";
+
 
     export default{
         data(){
@@ -53,8 +64,8 @@ import {getCount} from "@/api/test";
 
         created(){
             this.testId = urls.parse().hash['testId']
-            this.getMaxnum();
-            this.getQuestion();
+           
+           
             this.getQuestions();
         },
 
@@ -63,29 +74,11 @@ import {getCount} from "@/api/test";
                 getQues(this.testId).then(response=>{
                     let data = response.data;
                     this.list = response.data;
-                    alert(data[0].desc);
+                    
                 })
             },
 
-            getMaxnum(){
-                getCount(this.testId).then(response=>{
-                    this.maxnum = response.data;
-                })
-            },
-
-            getQuestion(){
-                getQuestion(this.testId,this.num).then(response=>{
-                    this.loading = true
-                    if(response.success){
-                        let data = response.data;
-                        this.num=data.num;
-                        this.question = data.desc;
-                        this.loading = false;
-                        
-                    }
-                })
-                
-            },
+           
             
         }
     }

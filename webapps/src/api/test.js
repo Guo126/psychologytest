@@ -26,3 +26,12 @@ export function getCount(paperId){
     })
 
 }
+
+export function getResponse(userId){
+    return request({
+        url:'/answer/responseList',
+        method: 'get',
+        params:{userId}
+
+    })
+}

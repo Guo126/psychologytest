@@ -2,10 +2,10 @@
     <div class="app-container" >
         
     
-    
+    <span>{{this.list[0].paperDesc}}</span>
         <el-card class="box-card" style="background-color:#81BEF7">
             <div slot="header" class="clearfix">
-                <span>MBTI性格类型测试报告</span>
+                <span>{{this.list[0].paperDesc}}</span>
                 
             </div>
             <div  class="text item">
@@ -52,19 +52,31 @@
 </style>
 
 <script>
+import {getResponse} from '@/api/test'
+import Cookie from 'js-cookie'
+
 export default {
     data(){
         return {
-            score: 0
-
+            score: 0,
+            list:[] ,
+            userId : 0,
         }
     },
     created(){
-        getScore();
+        this.userId = Cookie.get("userId");
+        getRes();
     },
     methods:{
         check(){
             this.$router.push('/example/details?reportId=1');
+        },
+        getRes(){
+            getResponse(this.userId).then(reponse=>{
+                let data = response.data;
+                this.list = data;
+                alert(data[0]);
+            })
         },
         getScore(){
             this.score = 86
