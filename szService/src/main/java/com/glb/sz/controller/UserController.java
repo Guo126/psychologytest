@@ -20,28 +20,28 @@ public class UserController {
     public BaseResult<User> register(@RequestParam("username") String username,
                                      @RequestParam("nickname") String nickname,
                                      @RequestParam("password") String password) {
-        return ResultUtil.buildResult(result -> userService.register(username,nickname,password,result));
+        return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,result));
     }
 
     @GetMapping("/getUser")
     public BaseResult<User> getUser(@RequestParam("username") String username,
                                     @RequestParam("password") String password) {
-        return ResultUtil.buildResult(result -> userService.getUser(username,password,result));
+        return ResultUtil.buildBaseResult(result -> userService.getUser(username,password,result));
     }
 
     @PostMapping("/login")
     public BaseResult<User> login(@RequestParam("userId") Integer userId) {
-        return ResultUtil.buildResult(result -> userService.login(userId,result));
+        return ResultUtil.buildBaseResult(result -> userService.login(userId,result));
     }
 
     @PostMapping("/logout")
     public BaseResult<Object> logout(@RequestParam("userId") Integer userId) {
-        return ResultUtil.buildResult(result -> userService.logout(userId,result));
+        return ResultUtil.buildBaseResult(result -> userService.logout(userId,result));
     }
 
     @PostMapping("/change")
     public BaseResult<User> changeUserMessage(@RequestParam("userId") Integer userId,
                                               @RequestBody UserMessageDTO userMessageDTO){
-        return ResultUtil.buildResult(result -> userService.changeUserMessage(userId,userMessageDTO,result));
+        return ResultUtil.buildBaseResult(result -> userService.changeUserMessage(userId,userMessageDTO,result));
     }
 }

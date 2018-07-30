@@ -20,19 +20,19 @@ public class ResponseServiceImpl implements ResponseService {
     @Override
     public void getResponseByPaper(Integer paperId, BaseResult<List<Response>> result) {
         List<Response> responseList = responseRepository.getResponseByPaper(paperId);
-        ResultUtil.setResult(responseList, result);
+        ResultUtil.setBaseResult(responseList, result);
     }
 
     @Override
     public void getResponseByScore(Integer paperId, Integer score, BaseResult<Response> result) {
         Response response = responseRepository.getResponse(paperId,score);
-        ResultUtil.setResult(response,result);
+        ResultUtil.setBaseResult(response,result);
     }
 
     @Override
     public void getResponseDetail(Integer paperId, BaseResult<List<ResponseWithMinScoreDTO>> result) {
         List<ResponseWithMinScoreDTO> responseWithMinScoreDTO = responseRepository.getResponse(paperId);
-        ResultUtil.setResult(responseWithMinScoreDTO,result);
+        ResultUtil.setBaseResult(responseWithMinScoreDTO,result);
     }
 
 

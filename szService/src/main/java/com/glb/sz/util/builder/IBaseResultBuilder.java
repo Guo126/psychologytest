@@ -1,7 +1,7 @@
-package com.glb.sz.util;
+package com.glb.sz.util.builder;
 
 import com.glb.sz.model.BaseResult;
 
-public interface IResultBuilder<T> {
+public interface IBaseResultBuilder<T> {
     void buildResult(BaseResult<T> result);
 }

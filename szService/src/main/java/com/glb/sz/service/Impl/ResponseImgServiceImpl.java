@@ -5,7 +5,6 @@ import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.entity.ResponseImg;
 import com.glb.sz.service.ResponseImgService;
 import com.glb.sz.util.ResultUtil;
-import javafx.scene.input.DataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class ResponseImgServiceImpl implements ResponseImgService {
             File targetFile = new File(targetPath);
             if(!targetFile.exists()){
                 if(!targetFile.mkdirs()){
-                    ResultUtil.setResult("失败",false,null,result);
+                    ResultUtil.setBaseResult("失败",false,null,result);
                     return;
                 }
             }
@@ -58,17 +57,17 @@ public class ResponseImgServiceImpl implements ResponseImgService {
             responseImg.setResponseId(responseId);
 
             responseImgRepository.save(responseImg);
-            ResultUtil.setResult("成功",true,null,result);
+            ResultUtil.setBaseResult("成功",true,null,result);
         } catch (IOException e) {
             e.printStackTrace();
 
-            ResultUtil.setResult("失败",false,null,result);
+            ResultUtil.setBaseResult("失败",false,null,result);
         }
     }
 
     @Override
     public void getImg(Integer responseId, BaseResult<List<ResponseImg>> result) {
         List<ResponseImg> responseImgList = responseImgRepository.getImg(responseId);
-        ResultUtil.setResult(responseImgList,result);
+        ResultUtil.setBaseResult(responseImgList,result);
     }
 }

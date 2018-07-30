@@ -16,6 +16,17 @@ public class Paper {
     private
     String paperDesc;
 
+    @Column(name ="state_id")
+    private Integer stateId;
+
+    public Integer getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(Integer stateId) {
+        this.stateId = stateId;
+    }
+
     public Integer getPaperId() {
         return paperId;
     }

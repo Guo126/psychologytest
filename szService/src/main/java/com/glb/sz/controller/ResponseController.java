@@ -33,23 +33,24 @@ public class ResponseController {
     @GetMapping("/getResponseByScore")
     public BaseResult<Response> getResponseByScore(@RequestParam("paperId") Integer paperId,
                                                    @RequestParam("score") Integer score){
-        return ResultUtil.buildResult(result -> responseService.getResponseByScore(paperId,score,result));
+        return ResultUtil.buildBaseResult(result -> responseService.getResponseByScore(paperId,score,result));
     }
 
     @GetMapping("/getImg")
     public BaseResult<List<ResponseImg>> getResponseImgList(@RequestParam("responseId") Integer responseId){
-        return ResultUtil.buildResult(result -> responseImgService.getImg(responseId,result));
+        return ResultUtil.buildBaseResult(result -> responseImgService.getImg(responseId,result));
     }
 
     @PostMapping("/saveImg")
     public BaseResult<Object> saveImg(@RequestParam("responseId") Integer responseId,
                                       @RequestParam("img") MultipartFile img){
-        return ResultUtil.buildResult(result -> responseImgService.saveImg(responseId,img,result));
+        return ResultUtil.buildBaseResult(result -> responseImgService.saveImg(responseId,img,result));
     }
 
     @GetMapping("/getResponseDetail")
     public BaseResult<List<ResponseWithMinScoreDTO>> getResponseDetail(@RequestParam("paperId") Integer paperId){
-        return ResultUtil.buildResult(result -> responseService.getResponseDetail(paperId,result));
+        return ResultUtil.buildBaseResult(result -> responseService.getResponseDetail(paperId,result));
     }
+
 
 }

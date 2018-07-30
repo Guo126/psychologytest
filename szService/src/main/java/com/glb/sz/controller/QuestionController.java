@@ -1,14 +1,13 @@
 package com.glb.sz.controller;
 
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.QuestionDTO;
 import com.glb.sz.model.entity.Question;
 import com.glb.sz.service.QuestionService;
+import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +40,26 @@ public class QuestionController {
         questionService.getQuestionCount(paperId,result);
         return result;
     }
+
+    @PostMapping("/reset")
+    public BaseResult<Integer> resetQuestion(@RequestParam("paperId") Integer paperId,
+                                             @RequestParam("questionNum") Integer questionNum,
+                                             @RequestParam("questionDesc") String questionDesc){
+        return ResultUtil.buildBaseResult(result -> questionService.resetQuestion(paperId,questionNum,questionDesc,result));
+    }
+
+    @PostMapping("/add")
+    public BaseResult<Question> addQuestion(@RequestParam("paperId") Integer paperId,
+                                            @RequestParam("questionNum") Integer questionNum,
+                                            @RequestParam("questionDesc") String questionDesc){
+        return ResultUtil.buildBaseResult(result -> questionService.addQuestion(paperId,questionNum,questionDesc,result));
+    }
+
+    @PostMapping("/delete")
+    public ModifyResult deleteQuestion(@RequestParam("paperId") Integer paperId,
+                                       @RequestParam("questionNum") Integer questionNum){
+        return ResultUtil.buildModifyResult(result -> questionService.deleteQuestion(paperId,questionNum,result));
+    }
+
 
 }
