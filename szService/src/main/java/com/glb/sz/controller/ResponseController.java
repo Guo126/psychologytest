@@ -1,6 +1,7 @@
 package com.glb.sz.controller;
 
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.model.entity.ResponseImg;
 import com.glb.sz.service.ResponseImgService;
@@ -44,6 +45,11 @@ public class ResponseController {
     public BaseResult<Object> saveImg(@RequestParam("responseId") Integer responseId,
                                       @RequestParam("img") MultipartFile img){
         return ResultUtil.buildResult(result -> responseImgService.saveImg(responseId,img,result));
+    }
+
+    @GetMapping("/getResponseDetail")
+    public BaseResult<List<ResponseWithMinScoreDTO>> getResponseDetail(@RequestParam("paperId") Integer paperId){
+        return ResultUtil.buildResult(result -> responseService.getResponseDetail(paperId,result));
     }
 
 }

@@ -2,6 +2,7 @@ package com.glb.sz.service.Impl;
 
 import com.glb.sz.Repository.ResponseRepository;
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.service.ResponseService;
 import com.glb.sz.util.ResultUtil;
@@ -27,4 +28,12 @@ public class ResponseServiceImpl implements ResponseService {
         Response response = responseRepository.getResponse(paperId,score);
         ResultUtil.setResult(response,result);
     }
+
+    @Override
+    public void getResponseDetail(Integer paperId, BaseResult<List<ResponseWithMinScoreDTO>> result) {
+        List<ResponseWithMinScoreDTO> responseWithMinScoreDTO = responseRepository.getResponse(paperId);
+        ResultUtil.setResult(responseWithMinScoreDTO,result);
+    }
+
+
 }

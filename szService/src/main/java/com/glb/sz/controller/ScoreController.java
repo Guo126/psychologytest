@@ -3,7 +3,6 @@ package com.glb.sz.controller;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.entity.Score;
 import com.glb.sz.service.ScoreService;
-import com.glb.sz.util.IResultBuilder;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
