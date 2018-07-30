@@ -65,6 +65,7 @@ export default {
     },
     created(){
         this.userId = Cookie.get("userId");
+        alert(this.userId);
         getRes();
     },
     methods:{
