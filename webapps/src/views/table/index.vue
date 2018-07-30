@@ -23,11 +23,12 @@
      <el-card class="box-card2" style="background-color:#424242 ;float:left">
       
       <div class="text" style="color: white">
-        <img src="table.jpg" style="float:left ; width:200px; height:150px ;margin-top:-10px"> 
-        <span class = "el-icon-message"> &nbsp;&nbsp;<el-tag >{{mail}}</el-tag>  </span>
-        </br></br>
-        <span class = "el-icon-phone"> &nbsp;&nbsp;<el-tag >{{phone}}</el-tag>  </span>
-        
+        <img src="table.jpg" style="float:left ; width:300px; height:160px ;margin-top:-18px;margin-left:-20px"> 
+        <div style="margin-left:330px">
+          <span class = "el-icon-message"> &nbsp;&nbsp;<el-tag >{{mail}}</el-tag>  </span>
+          </br></br>
+          <span class = "el-icon-phone"> &nbsp;&nbsp;<el-tag >{{phone}}</el-tag>  </span>
+        </div>
       </div>
      </el-card>
      <el-card class="box-card2" style="background-color:#0080FF ;float:right">

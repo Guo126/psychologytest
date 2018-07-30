@@ -35,3 +35,19 @@ export function getResponse(userId){
 
     })
 }
+
+export function saveResponse(userId,responseId,score){
+    return request({
+        url:'/score/saveResponse',
+        method:'post',
+        params:{userId,responseId,score}
+    })
+}
+
+export function getResponseBy(paperId,score){
+    return request({
+        url:'/response/getResponseByScore',
+        method:'get',
+        params:{paperId,score}
+    })
+}
