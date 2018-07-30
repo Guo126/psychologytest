@@ -1,5 +1,6 @@
 package com.glb.sz.Repository;
 
+import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.entity.Score;
 import com.glb.sz.model.entity.pk.Score_ID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,5 @@ public interface ScoreRepository extends JpaRepository<Score,Score_ID> {
 
     @Query(value = "select * from score where user_id=?1 and response_id=?2",nativeQuery = true)
     Score getUserScore(Integer userId,Integer responseId);
-
 
 }

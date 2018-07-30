@@ -19,6 +19,6 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     @Override
     public void getUserResponseList(Integer userId, BaseResult<List<UserAnswerDTO>> result) {
         List<UserAnswerDTO> userAnswerDTOList = userRepository.getUserResponseList(userId);
-        ResultUtil.setResult(userAnswerDTOList, result);
+        ResultUtil.setBaseResult(userAnswerDTOList, result);
     }
 }

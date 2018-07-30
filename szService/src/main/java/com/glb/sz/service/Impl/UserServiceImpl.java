@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void getUser(String username, String password, BaseResult<User> result) {
         User user = userRepository.getUser(username, password);
-        ResultUtil.setResult(user, result);
+        ResultUtil.setBaseResult(user, result);
     }
 
     @Override
@@ -33,16 +33,16 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.getUser(userId);
         if (user == null) {
-            ResultUtil.setResult(null, result);
+            ResultUtil.setBaseResult(null, result);
             return;
         }
         int r = userRepository.login(userId, "online");
         if (r == 0) {
-            ResultUtil.setResult(null, result);
+            ResultUtil.setBaseResult(null, result);
             return;
         }
 
-        ResultUtil.setResult(user, result);
+        ResultUtil.setBaseResult(user, result);
 
     }
 
@@ -51,9 +51,9 @@ public class UserServiceImpl implements UserService {
     public void logout(Integer userId, BaseResult<Object> result) {
         int r = userRepository.logout(userId);
         if (r != 0) {
-            ResultUtil.setResult("登出成功", true, r + "", result);
+            ResultUtil.setBaseResult("登出成功", true, r + "", result);
         } else {
-            ResultUtil.setResult("登出失败", false, r + "", result);
+            ResultUtil.setBaseResult("登出失败", false, r + "", result);
         }
     }
 
@@ -62,30 +62,30 @@ public class UserServiceImpl implements UserService {
 
         User u = userRepository.getUser(username, password);
         if (u != null) {
-            ResultUtil.setResult("账号已存在", false, null, result);
+            ResultUtil.setBaseResult("账号已存在", false, null, result);
         }
 
         User user = new User(username, MD5Util.getMD5String(password), nickname, "offline");
         userRepository.save(user);
 
-        ResultUtil.setResult(user, result);
+        ResultUtil.setBaseResult(user, result);
     }
 
     @Override
     public void changeUserMessage(Integer userId, UserMessageDTO userMessageDTO, BaseResult<User> result) {
         User user = userRepository.getUser(userId);
         if(user == null){
-            ResultUtil.setResult("该用户不存在",false,null,result);
+            ResultUtil.setBaseResult("该用户不存在",false,null,result);
             return;
         }
 
         user = UpdateUtil.updateAObj(user,userMessageDTO.toString());
         if(user == null){
-            ResultUtil.setResult("用户保存失败",false,null,result);
+            ResultUtil.setBaseResult("用户保存失败",false,null,result);
             return;
         }
 
         userRepository.save(user);
-        ResultUtil.setResult("用户保存成功",true,user,result);
+        ResultUtil.setBaseResult("用户保存成功",true,user,result);
     }
 }

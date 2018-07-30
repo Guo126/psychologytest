@@ -19,18 +19,18 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public void getUserAllScore(Integer userId, BaseResult<List<Score>> result) {
         List<Score> scoreList = scoreRepository.getUserAllScore(userId);
-        ResultUtil.setResult(scoreList,result);
+        ResultUtil.setBaseResult(scoreList,result);
     }
 
     @Override
     public void getUSerScore(Integer userId, Integer responseId, BaseResult<Score> result) {
         Score score = scoreRepository.getUserScore(userId,responseId);
-        ResultUtil.setResult(score,result);
+        ResultUtil.setBaseResult(score,result);
     }
 
     @Override
     public void setUserScore(Score score, BaseResult<Object> result) {
         scoreRepository.save(score);
-        ResultUtil.setResult("保存成功",true,null,result);
+        ResultUtil.setBaseResult("保存成功",true,null,result);
     }
 }
