@@ -1,5 +1,6 @@
 package com.glb.sz.service.Impl;
 
+import com.glb.sz.Repository.ScoreRepository;
 import com.glb.sz.Repository.UserRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.dto.UserAnswerDTO;
@@ -14,11 +15,11 @@ import java.util.List;
 public class UserAnswerServiceImpl implements UserAnswerService {
 
     @Autowired
-    private UserRepository userRepository;
+    private ScoreRepository scoreRepository;
 
     @Override
     public void getUserResponseList(Integer userId, BaseResult<List<UserAnswerDTO>> result) {
-        List<UserAnswerDTO> userAnswerDTOList = userRepository.getUserResponseList(userId);
+        List<UserAnswerDTO> userAnswerDTOList = scoreRepository.getUserAnswer(userId);
         ResultUtil.setBaseResult(userAnswerDTOList, result);
     }
 }
