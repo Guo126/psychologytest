@@ -19,9 +19,9 @@
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
               
-             <el-button slot="reference" type="text" class="button" >&nbsp;&nbsp;删除试卷 &nbsp;&nbsp;</el-button>
+            <el-button slot="texte" type="text" class="button" @click="deletePapers(o.paperId)">&nbsp;&nbsp;删除试卷 &nbsp;&nbsp;</el-button>
            
-            &nbsp;&nbsp;
+             &nbsp;&nbsp;
             <el-button type="text" class="button" @click="changeQuestion(o.paperId)">修改试题&nbsp;&nbsp;</el-button>
            
             <el-button type="text" class="button" @click="changeResponse(o.paperId)">修改报告&nbsp;&nbsp;</el-button>
@@ -46,7 +46,7 @@
 
 <script>
 import {getPaper} from "@/api/test";
-
+import {deletePaper} from "@/api/change";
 
 export default {
 
@@ -69,6 +69,7 @@ export default {
   },
   
   methods:{
+
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },
@@ -85,9 +86,11 @@ export default {
     addPaper(){
         this.$router.push('/admin/addp')
     },
-    changePaper(nowTestId){
-        this.$router.push('/admin/changep?testId='+nowTestId);
+    
+    deletePapers(nowTestId){
+       deletePaper(nowTestId);
     },
+    
     changeQuestion(nowTestId){
         this.$router.push('/admin/changequestion?testId='+nowTestId);
     },

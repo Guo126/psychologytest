@@ -35,7 +35,7 @@
 import {getQuestion} from "@/api/test" ;
 import urls from "urls-js";
 import {getCount} from "@/api/test";
-import {getResponseBy} from "@/api/test";
+import {getResByScore} from "@/api/test";
 import {saveResponse} from "@/api/test";
 import Cookie from 'js-cookie'
 
@@ -86,21 +86,18 @@ export default{
             })
             
         },
-        getResponseByScore(){
-            getResponseBy(2,10).then(response=>{
-            // getResponseBy(this.testId,this.score).then(response=>{
-                this.list = response.data;
+        getResponseByScore(){                            
+            getResByScore(this.testId,this.score).then(response=>{
+                this.list = response.data
                 alert("5")
             })
         },
 
         nextQuestion(){
             if(this.num==this.maxnum){
-                alert("      您已完成测评,点击返回首页 "  )  
-                alert(this.testId)
-                alert(this.score)
+                alert("      您已完成测评,点击返回首页 "  )                 
                 this.getResponseByScore()            
-                alert(this.list.responseDesc)
+                alert(this.list.scoreMin)
                 saveResponse(this.userId,2,this.score)
                 this.$router.push('/example/table')
             }else{

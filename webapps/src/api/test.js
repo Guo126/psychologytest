@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function getPaper(){
+export function getPaper(page,pageSize){
     return request({
         url:'/paper/getPaperList',
         method:'get',   
-
+        params:{page,pageSize}
     })
 
 }
@@ -44,7 +44,7 @@ export function saveResponse(userId,responseId,score){
     })
 }
 
-export function getResponseBy(paperId,score){
+export function getResByScore(paperId,score){
     return request({
         url:'/response/getResponseByScore',
         method:'get',
