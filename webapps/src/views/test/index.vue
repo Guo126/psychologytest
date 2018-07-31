@@ -59,13 +59,10 @@ export default {
   
   methods:{
     getPaperInfo(){
-      getPaper(2,4).then(response=>{
+      getPaper(0,4).then(response=>{
         if(response.success){
           this.list = response.data
           
- alert(this.list[0].paperId)
-          alert(this.list[1].paperId)
-          console.log(this.list)
         }
       })
     },

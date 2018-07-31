@@ -6,7 +6,7 @@
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
         <div style="float:right">
         <el-button type="primary" icon="el-icon-plus"  @click="addPaper()">添加</el-button> 
-        <el-button type="primary" @click="onSubmit">保存</el-button>
+        
         <el-button @click="onCancel">退出</el-button>
         </div>
         </br></br></br>
@@ -14,8 +14,8 @@
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
         <div style="padding: 14px;">
-          <el-input v-model="o.paperDesc" > </el-input>
-          
+          <el-input v-model="o.paperDesc" style="width:500px"> </el-input>
+          <el-button type="primary" @click="renamePaper(o.paperId,o.paperDesc)">保存</el-button>
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
               
@@ -47,6 +47,7 @@
 <script>
 import {getPaper} from "@/api/test";
 import {deletePaper} from "@/api/change";
+import {namePaper} from "@/api/change";
 
 export default {
 
@@ -58,12 +59,12 @@ export default {
 
   data() {
     return {
-         currentPage: 1,
+      
+      currentPage: 1,
        
       currentDate: new Date() ,
-      list : [{
-       
-      }],
+      list : [],
+      
      
     };
   },
@@ -77,7 +78,7 @@ export default {
         console.log(`当前页: ${val}`);
       },
       getPaperInfo(){
-        getPaper().then(response=>{
+        getPaper(0,4).then(response=>{
           if(response.success){
             this.list = response.data
          }
@@ -86,9 +87,29 @@ export default {
     addPaper(){
         this.$router.push('/admin/addp')
     },
+
+    renamePaper(nowId,newName){
+      
+      namePaper(nowId,newName).then(response=>{
+         if(response.success){
+           alert("保存成功！")
+           location.reload()
+         }else{
+           alert("保存失败！")
+         }
+       })
+    },
     
     deletePapers(nowTestId){
-       deletePaper(nowTestId);
+       deletePaper(nowTestId).then(response=>{
+         if(response.success){
+           alert("删除成功！")
+           location.reload()
+         }else{
+           alert("删除失败！")
+         }
+       })
+       
     },
     
     changeQuestion(nowTestId){
