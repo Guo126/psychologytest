@@ -35,67 +35,84 @@
 import {getQuestion} from "@/api/test" ;
 import urls from "urls-js";
 import {getCount} from "@/api/test";
+import {getResByScore} from "@/api/test";
+import {saveResponse} from "@/api/test";
+import Cookie from 'js-cookie'
 
-    export default{
-        data(){
-            return{
-                testId:undefined,
-                num : 1 ,
-                question : '' ,
-                answer : 0 ,
-                loading:true,
-                maxnum: 0 ,
-                per: 0 ,
-                show : 'true',
-                score: 0 ,
-            }
-           
-        },
-
-        created(){
-            this.testId = urls.parse().hash['testId']
-            this.getMaxnum();
-            this.getQuestions();
-        },
-
-        methods:{
-
-            getMaxnum(){
-                getCount(this.testId).then(response=>{
-                    this.maxnum = response.data;
-                })
-            },
-
-            getQuestions(){
-                getQuestion(this.testId,this.num).then(response=>{
-                    this.loading = true
-                    if(response.success){
-                        let data = response.data;
-                        this.num=data.num;
-                        this.question = data.desc
-                        this.loading = false
-                        this.per = (this.num*100/this.maxnum)
-                    }
-                })
-                
-            },
-            nextQuestion(){
-                if(this.num==this.maxnum){
-                    alert("       您已完成测评,点击返回首页 "  )
-                    this.$router.push('/example/table')
-                }else{
-                    this.num++;
-                    this.getQuestions()
-                    this.score += this.answer
-                    
-                    
-                }
-                
-                
-            }
-
+export default{
+    data(){
+        return{
+            userId:undefined,
+            testId:undefined,
+            num : 1 ,
+            question : '' ,
+            answer : 0 ,
+            loading:true,
+            maxnum: 0 ,
+            per: 0 ,
+            
+            score: 0 ,
+            list:[]
         }
+        
+    },
+
+    created(){
+        this.testId = urls.parse().hash['testId']
+        this.userId = Cookie.get("userId")
+        this.getMaxnum();
+        this.getQuestions();
+        
+    },
+
+    methods:{
+
+        getMaxnum(){
+            getCount(this.testId).then(response=>{
+                this.maxnum = response.data;
+            })
+        },
+
+        getQuestions(){
+            getQuestion(this.testId,this.num).then(response=>{
+                this.loading = true
+                if(response.success){
+                    let data = response.data;
+                    this.num=data.num;
+                    this.question = data.desc
+                    this.loading = false
+                    this.per = (this.num*100/this.maxnum)
+                }
+            })
+            
+        },
+        getResponseByScore(){                            
+            getResByScore(this.testId,this.score).then(response=>{
+                this.list = response.data
+                alert("5")
+            })
+        },
+
+        nextQuestion(){
+            if(this.num==this.maxnum){
+                alert("      您已完成测评,点击返回首页 "  )                 
+                this.getResponseByScore()            
+                alert(this.list.scoreMin)
+                saveResponse(this.userId,2,this.score)
+                this.$router.push('/example/table')
+            }else{
+                this.num++;
+                this.getQuestions()
+                this.score += this.answer
+                
+                
+            }
+            
+            
+        },
+        
     }
+}
 </script>
 
 <style>

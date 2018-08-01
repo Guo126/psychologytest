@@ -65,17 +65,19 @@ export default {
     },
     created(){
         this.userId = Cookie.get("userId");
-        getRes();
+        
+        this.getRes();
+        alert(this.list[0].responseDesc);
     },
     methods:{
         check(){
             this.$router.push('/example/details?reportId=1');
         },
         getRes(){
-            getResponse(this.userId).then(reponse=>{
+            getResponse(this.userId).then(response=>{
                 let data = response.data;
                 this.list = data;
-                alert(data[0]);
+                alert(data[0].responseDesc);
             })
         },
         getScore(){
