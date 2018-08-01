@@ -7,6 +7,7 @@ import com.glb.sz.model.entity.Paper;
 import com.glb.sz.service.PaperService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,10 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public void getPaperList(Integer page,Integer pageSize, BaseResult<Page<Paper>> result) {
         PageRequest pageRequest = PageRequest.of(page,pageSize);
-        ResultUtil.setBaseResult(paperRepository.findAll(pageRequest),result);
+        Paper paper = new Paper();
+        paper.setStateId(1);
+        Example<Paper> paperExample = Example.of(paper);
+        ResultUtil.setBaseResult(paperRepository.findAll(paperExample,pageRequest),result);
     }
 
     @Override
