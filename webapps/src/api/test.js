@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getPaper(page,pageSize){
     return request({
-        url:'/paper/getPaperList',
+        url:'/paper/getPaper',
         method:'get',   
         params:{page,pageSize}
     })

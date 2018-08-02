@@ -21,10 +21,7 @@
           登录
         </el-button>
       </el-form-item>
-      <div class="tips">
-        <span style="margin-right:20px;">用户名: admin</span>
-        <span> 密码: admin</span>
-      </div>
+      
     </el-form>
   </div>
 </template>
@@ -51,8 +48,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'dogb',
-        password: '123456'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur' }],

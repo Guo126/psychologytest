@@ -6,8 +6,6 @@
      <el-button type="primary" icon="el-icon-search">搜索</el-button> 
         <div style="float:right">
         <el-button type="primary" icon="el-icon-plus"  @click="addPaper()">添加</el-button> 
-        
-        <el-button @click="onCancel">退出</el-button>
         </div>
         </br></br></br>
         <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px'}">
@@ -19,8 +17,18 @@
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
               
-            <el-button slot="texte" type="text" class="button" @click="deletePapers(o.paperId)">&nbsp;&nbsp;删除试卷 &nbsp;&nbsp;</el-button>
-           
+            <el-button type="text" class="button" @click="dialogVisible = true ;deleteButton(o.paperId)">&nbsp;&nbsp;删除试卷 &nbsp;&nbsp;</el-button>
+            <el-dialog
+              title="提示"
+              :visible.sync="dialogVisible"
+              width="20%"
+              :before-close="handleClose">
+              <span>确认删除吗？</span>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary"  @click="dialogVisible =false ;deletePapers()">确 定</el-button>
+              </span>
+            </el-dialog>
              &nbsp;&nbsp;
             <el-button type="text" class="button" @click="changeQuestion(o.paperId)">修改试题&nbsp;&nbsp;</el-button>
            
@@ -30,15 +38,15 @@
         
       </el-card>
      
-         <div class="block" style=" margin-left:36% ; margin-top:100px">
+         <div class="block" style=" margin-left:40% ; margin-top:100px">
             <span class="demonstration"></span>
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-size="4"
-            layout="prev, pager, next, jumper"
-            :total="list.length">
+            :page-size="5"
+            layout="prev, pager, next"
+            :total="10">
             </el-pagination>
         </div>
     </div>
@@ -52,24 +60,29 @@ import {namePaper} from "@/api/change";
 export default {
 
   created(){
-    this.getPaperInfo();
-    console.log(this.list);
-    
+    this.getPaperInfo(); 
   },
 
   data() {
     return {
       
       currentPage: 1,
-       
+      dialogVisible: false ,
       currentDate: new Date() ,
       list : [],
-      
+      lists:[],
+      index: -1,
      
     };
   },
   
   methods:{
+   
+      deleteButton(paperid){
+        
+        this.index = paperid
+        
+      },
 
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -78,9 +91,12 @@ export default {
         console.log(`当前页: ${val}`);
       },
       getPaperInfo(){
-        getPaper(0,4).then(response=>{
+        getPaper(0,5).then(response=>{
           if(response.success){
-            this.list = response.data
+            this.list = response.data.content
+            this.lists = response.data.pageable
+            console(this.list[0])
+            alert(this.lists.totalElements)
          }
       })
     },
@@ -92,16 +108,19 @@ export default {
       
       namePaper(nowId,newName).then(response=>{
          if(response.success){
-           alert("保存成功！")
+           
+           alert("修改成功！")
            location.reload()
          }else{
-           alert("保存失败！")
+           alert("修改失败！")
          }
        })
     },
     
-    deletePapers(nowTestId){
-       deletePaper(nowTestId).then(response=>{
+    deletePapers(){
+       deletePaper(this.index).then(response=>{
+         
+          
          if(response.success){
            alert("删除成功！")
            location.reload()
@@ -122,7 +141,16 @@ export default {
 
     handleDispatchSepcific(nowTestId){
       this.$router.push('/example/testing?testId='+nowTestId)
-    }
+    },
+
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
+    
   }
 }
 </script>

@@ -132,7 +132,7 @@ export default {
   data() {
     return {
       userId:undefined,
-      list: null,
+      list:[],
       listLoading: true,
       username:'',
       mail:'',
@@ -157,7 +157,7 @@ export default {
     this.username = Cookie.get("userName");
     this.phone = Cookie.get("userPhone");
     this.mail = Cookie.get("userPhone");
-    this.fetchData()
+    
   },
   computed:{
 
@@ -167,16 +167,7 @@ export default {
     ])
   },
   methods: {
-    fetchData() {
-        this.listLoading = true;
-        getList(this.listQuery).then(response => {
-       
-        this.list = response.data.items;
-        this.listLoading = false
-       
-      
-      })
-    },
+    
     toReport(){
       this.$router.push("/example/report");
     },

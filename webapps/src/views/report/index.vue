@@ -1,23 +1,20 @@
 <template> 
     <div class="app-container" >
+        <el-card  v-for="(o,index) in list" :key="o.responseId" :body-style="{ padding: '20px'}" style="background-color:#E0ECF8 ; margin-top:6px">
+        <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
+        <div style="padding: 14px;">
+             <span>{{o.paperDesc}}&nbsp;&nbsp;报告</span>&nbsp;&nbsp;&nbsp;
+            </br></br>
+          <span >{{o.responseDesc}} </span>         
+          <div class="bottom clearfix">
+            <time class="time">{{ currentDate }}</time>
+             
+          </div>
+        </div>
         
+      </el-card>
     
-    <span>{{this.list[0].paperDesc}}</span>
-        <el-card class="box-card" style="background-color:#81BEF7">
-            <div slot="header" class="clearfix">
-                <span>{{this.list[0].paperDesc}}</span>
-                
-            </div>
-            <div  class="text item">
-                &nbsp;&nbsp;{{score}}分
-            </div>
-            <div class="block">
-                
-                <el-button style="float: right; padding: 3px 0" type="text" @click="check">查看详情</el-button>
-                </br>
-            </div>
-  
-        </el-card>
+    
         
     
 
@@ -64,10 +61,8 @@ export default {
         }
     },
     created(){
-        this.userId = Cookie.get("userId");
-        
-        this.getRes();
-        alert(this.list[0].responseDesc);
+        this.userId = Cookie.get("userId");       
+        this.getRes();       
     },
     methods:{
         check(){
@@ -76,14 +71,10 @@ export default {
         getRes(){
             getResponse(this.userId).then(response=>{
                 let data = response.data;
-                this.list = data;
-                alert(data[0].responseDesc);
+                this.list = data;           
             })
         },
-        getScore(){
-            this.score = 86
-
-        }
+       
     }
 }
 </script>

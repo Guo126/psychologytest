@@ -12,7 +12,7 @@ export function getQues(paperId){
 
 export function getRes(paperId){
     return request({
-        url:'/response/getResponse',
+        url:'/response/getResponseDetail',
         method:'get',
         params:{paperId}
     })
@@ -39,4 +39,29 @@ export function deletePaper(paperId){
         params:{paperId}
     })
 }
+
+export function addQues(paperId,questionNum,questionDesc){
+    return request({
+        url:'/question/add',
+        method:'post',
+        params:{paperId,questionNum,questionDesc}
+    })
+}
+
+export function deleteQues(paperId,questionNum){
+    return request({
+        url:'/question/delete',
+        method:'post',
+        params:{paperId,questionNum}
+    })
+}
+
+export function resetQues(paperId,questionNum,questionDesc){
+    return request({
+        url:'/question/reset',
+        method:'post',
+        params:{paperId,questionNum,questionDesc}
+    })
+}
+
 

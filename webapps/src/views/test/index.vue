@@ -39,15 +39,13 @@ export default {
   created(){
     this.getPaperInfo();
     
-    
   },
 
   data() {
     return {
       currentDate: new Date() ,
-      list : [{
-       
-      }],
+      list : [],
+      
       colors:[
         "#58D3F7",
         '#F5A9E1',
@@ -61,8 +59,8 @@ export default {
     getPaperInfo(){
       getPaper(0,4).then(response=>{
         if(response.success){
-          this.list = response.data
-          
+          this.list = response.data.content
+          console.log(this.list)
         }
       })
     },

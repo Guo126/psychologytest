@@ -50,9 +50,9 @@ export default{
             loading:true,
             maxnum: 0 ,
             per: 0 ,
-            
+            responseId:0,
             score: 0 ,
-            list:[]
+            list:[] ,
         }
         
     },
@@ -61,7 +61,9 @@ export default{
         this.testId = urls.parse().hash['testId']
         this.userId = Cookie.get("userId")
         this.getMaxnum();
+        
         this.getQuestions();
+        
         
     },
 
@@ -81,30 +83,39 @@ export default{
                     this.num=data.num;
                     this.question = data.desc
                     this.loading = false
-                    this.per = (this.num*100/this.maxnum)
+                    this.per = parseInt(this.num *100/this.maxnum)
                 }
             })
             
         },
         getResponseByScore(){                            
-            getResByScore(this.testId,this.score).then(response=>{
-                this.list = response.data
-                alert("5")
+            getResByScore(this.testId,this.score).then(response=>{   
+                if(response.success){
+                    this.responseId= response.data.responseId 
+                    alert(this.responseId) 
+                }else{
+                        alert("失败")         
+                }          
+                    
+                          
             })
         },
 
         nextQuestion(){
-            if(this.num==this.maxnum){
-                alert("      您已完成测评,点击返回首页 "  )                 
-                this.getResponseByScore()            
-                alert(this.list.scoreMin)
-                saveResponse(this.userId,2,this.score)
+            if(this.num==this.maxnum){   
+                this.score += this.answer 
+                alert(this.score)                           
+                this.getResponseByScore() 
+                alert(this.score)                       
+                saveResponse(this.userId,this.responseId,this.score)
+                alert("      您已完成测评,点击返回首页 "  )  
                 this.$router.push('/example/table')
             }else{
-                this.num++;
+                
+                this.num++              
                 this.getQuestions()
                 this.score += this.answer
-                
+               
                 
             }
             
