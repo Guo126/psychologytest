@@ -80,7 +80,7 @@ export default{
                 this.loading = true
                 if(response.success){
                     let data = response.data;
-                    this.num=data.num;
+                    this.num = data.num;
                     this.question = data.desc
                     this.loading = false
                     this.per = parseInt(this.num *100/this.maxnum)
@@ -103,10 +103,8 @@ export default{
 
         nextQuestion(){
             if(this.num==this.maxnum){   
-                this.score += this.answer 
-                alert(this.score)                           
-                this.getResponseByScore() 
-                alert(this.score)                       
+                this.score += this.answer                              
+                this.getResponseByScore()                         
                 saveResponse(this.userId,this.responseId,this.score)
                 alert("      您已完成测评,点击返回首页 "  )  
                 this.$router.push('/example/table')

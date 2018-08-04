@@ -131,13 +131,7 @@ export const constantRouterMap = [
         meta: { title: '修改报告', icon: 'example' },
         hidden :true
       },
-      {
-        path: 'addp',
-        name: 'addp',     
-        component: () => import('@/views/admin/addp'),
-        meta: { title: '添加试卷', icon: 'example' },
-        hidden :true
-      },
+      
      
     ]
   },

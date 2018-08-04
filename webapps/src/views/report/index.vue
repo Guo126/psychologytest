@@ -7,17 +7,21 @@
             </br></br>
           <span >{{o.responseDesc}} </span>         
           <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-             
+            <time class="time">{{ currentDate }}</time>       
           </div>
-        </div>
-        
+        </div>       
       </el-card>
-    
-    
-        
-    
-
+      <div class="block" style=" margin-left:36% ; margin-top:100px">
+            <span class="demonstration"></span>
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="4"
+                layout="prev, pager, next, jumper"
+                :total="total">
+                </el-pagination>
+      </div>
     </div>
 
     

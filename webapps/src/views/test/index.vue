@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    
       <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px' }"  :style="{'background-color':colors[index%3] }" style="margin-top:6px">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
@@ -14,38 +13,29 @@
       </el-card>
       <div class="block" style=" margin-left:36% ; margin-top:100px">
             <span class="demonstration"></span>
-            <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="4"
-            layout="prev, pager, next, jumper"
-            :total="list.length">
-            </el-pagination>
-        </div>
-
-     
-
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="4"
+                layout="prev, pager, next, jumper"
+                :total="total">
+                </el-pagination>
+      </div>
   </div>
 </template>
 
 
 <script>
 import {getPaper} from "@/api/test";
-
-
 export default {
-
-  created(){
-    this.getPaperInfo();
-    
-  },
-
   data() {
     return {
       currentDate: new Date() ,
+      currentPage: 1,
       list : [],
-      
+      page: [],
+      total:0,
       colors:[
         "#58D3F7",
         '#F5A9E1',
@@ -54,22 +44,34 @@ export default {
 
     };
   },
+  created(){
+    this.getPapers();
+    
+  },
   
   methods:{
-    getPaperInfo(){
-      getPaper(0,4).then(response=>{
-        if(response.success){
-          this.list = response.data.content
-          console.log(this.list)
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+    handleCurrentChange(val) {
+        this.currentPage = val
+        this.getPapers()       
+      },
+   
+    getPapers(){
+      getPaper(this.currentPage-1,4).then(response=>{
+        if(response.success){                
+          this.list = response.data.content                
+          this.total = response.data.totalElements
+         
         }
       })
     },
-
-
-    handleDispatchSepcific(nowTestId){
+  handleDispatchSepcific(nowTestId){
       this.$router.push('/example/testing?testId='+nowTestId)
-    }
+    },
   }
+  
 }
 </script>
 

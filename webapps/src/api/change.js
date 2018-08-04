@@ -63,5 +63,29 @@ export function resetQues(paperId,questionNum,questionDesc){
         params:{paperId,questionNum,questionDesc}
     })
 }
+export function addRes(responseDesc,paperId,minScore){
+    return request({
+        url:'/response/add',
+        method:'post',
+        params:{responseDesc,paperId,minScore}
+    })
+}
+
+export function deleteRes(responseId){
+    return request({
+        url:'/response/delete',
+        method:'post',
+        params:{responseId}
+    })
+}
+
+export function resetRes(responseId,responseDesc){
+    return request({
+        url:'/response/reset',
+        method:'post',
+        params:{responseId,responseDesc}
+    })
+}
+
 
 
