@@ -94,6 +94,10 @@ export const constantRouterMap = [
     ]
   },
 
+  { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRouterMap = [
   {
     path: '/admin',
     component:Layout,  
@@ -139,9 +143,12 @@ export const constantRouterMap = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+
+
 export default new Router({
   // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
+  routes: constantRouterMap ,
+  adminRoutes: asyncRouterMap
 })
 

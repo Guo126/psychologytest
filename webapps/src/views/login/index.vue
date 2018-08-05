@@ -1,5 +1,7 @@
 <template>
-  <div class="login-container">
+
+  <div class="login-container" style="background:url('back.jpg');background-size:100% auto">
+    
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
       <h3 class="title">心理测试系统</h3>
       <el-form-item prop="username">
@@ -55,6 +57,7 @@ export default {
         username: [{ required: true, trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
+     
       loading: false,
       pwdType: 'password'
     }
@@ -175,5 +178,6 @@ $light_gray:#eee;
     cursor: pointer;
     user-select: none;
   }
+  
 }
 </style>
