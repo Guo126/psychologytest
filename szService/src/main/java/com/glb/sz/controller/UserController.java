@@ -1,6 +1,7 @@
 package com.glb.sz.controller;
 
 import com.glb.sz.model.BaseResult;
+import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.UserMessageDTO;
 import com.glb.sz.model.entity.User;
 import com.glb.sz.service.UserService;
@@ -43,5 +44,10 @@ public class UserController {
     public BaseResult<User> changeUserMessage(@RequestParam("userId") Integer userId,
                                               @RequestBody UserMessageDTO userMessageDTO){
         return ResultUtil.buildBaseResult(result -> userService.changeUserMessage(userId,userMessageDTO,result));
+    }
+
+    @PostMapping("/delete")
+    public ModifyResult delete(@RequestParam("userId") Integer userId){
+        return ResultUtil.buildModifyResult(result -> userService.deleteUser(userId,result));
     }
 }

@@ -9,6 +9,7 @@ import com.glb.sz.service.ResponseImgService;
 import com.glb.sz.service.ResponseService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,6 @@ public class ResponseController {
 
     @Autowired
     private ResponseService responseService;
-
     @Autowired
     private ResponseImgService responseImgService;
 
@@ -59,9 +59,10 @@ public class ResponseController {
     }
 
     @PostMapping("/reset")
-    public ModifyResult resetResponse(@RequestParam("responseId") Integer responseId,
-                                      @RequestParam("responseDesc") String responseDesc){
-        return ResultUtil.buildModifyResult(result -> responseService.resetResponse(responseId,responseDesc,result));
+    public ModifyResult resetResponse(@RequestParam(value = "responseId") Integer responseId,
+                                      @RequestParam(value = "minScore",required = false) Integer minScore,
+                                      @RequestParam(value = "responseDesc",required = false) String responseDesc){
+        return ResultUtil.buildModifyResult(result -> responseService.resetResponse(responseId,minScore,responseDesc,result));
     }
 
     @PostMapping("/add")
@@ -69,6 +70,12 @@ public class ResponseController {
                                     @RequestParam("paperId") Integer paperId,
                                     @RequestParam("minScore") Integer minScore){
         return ResultUtil.buildModifyResult(result -> responseService.addResponse(responseDesc,minScore,paperId,result));
+    }
+
+    @GetMapping("/getResponseWithPage")
+    public BaseResult<Page<Response>> getResponse(@RequestParam("page") Integer page,
+                                                  @RequestParam("pageSize") Integer pageSize){
+        return ResultUtil.buildBaseResult(result -> responseService.getResponse(page,pageSize,result));
     }
 
 }

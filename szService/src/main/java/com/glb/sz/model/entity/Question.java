@@ -1,5 +1,6 @@
 package com.glb.sz.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.glb.sz.model.entity.pk.QuestionPK;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Question {
 
     @Id
     @Column(name = "paper_id")
+    @JsonIgnore
     private
     Integer paperId;
 
@@ -23,16 +25,29 @@ public class Question {
     private Integer questionNum;
 
     @Column(name = "stateId")
+    @JsonIgnore
     private Integer stateId;
 
     public Question(){
 
     }
 
+    public Question(Integer paperId, Integer stateId) {
+        this.paperId = paperId;
+        this.stateId = stateId;
+    }
+
     public Question(String questionDesc, Integer paperId, Integer questionNum) {
         this.questionDesc = questionDesc;
         this.paperId = paperId;
         this.questionNum = questionNum;
+    }
+
+    public Question(String questionDesc, Integer paperId, Integer questionNum, Integer stateId) {
+        this.questionDesc = questionDesc;
+        this.paperId = paperId;
+        this.questionNum = questionNum;
+        this.stateId = stateId;
     }
 
     public Integer getStateId() {

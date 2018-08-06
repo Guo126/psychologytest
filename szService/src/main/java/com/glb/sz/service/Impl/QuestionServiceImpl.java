@@ -6,8 +6,13 @@ import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.QuestionDTO;
 import com.glb.sz.model.entity.Question;
 import com.glb.sz.service.QuestionService;
+import com.glb.sz.util.PageUtil;
 import com.glb.sz.util.ResultUtil;
+import com.glb.sz.util.builder.IPageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +61,7 @@ public class QuestionServiceImpl implements QuestionService {
             ResultUtil.setBaseResult("该题目已存在",false,null,result);
         }
 
-        ResultUtil.setBaseResult(questionRepository.save(new Question(questionDesc,paperId,questionNum)),result);
+        ResultUtil.setBaseResult(questionRepository.save(new Question(questionDesc,paperId,questionNum,1)),result);
 
     }
 
@@ -70,4 +75,12 @@ public class QuestionServiceImpl implements QuestionService {
             ResultUtil.setModifyResult("删除成功",true,result);
         }
     }
+
+    @Override
+    public void getQuestion(Integer page, Integer pageSize, Integer paperId, BaseResult<Page<Question>> result) {
+        ResultUtil.setBaseResult(PageUtil.getPage(page, pageSize, new Question(paperId, 1),
+                (IPageBuilder<Question>) (pageRequest, example) -> questionRepository.findAll(example,pageRequest)),result);
+    }
+
+
 }

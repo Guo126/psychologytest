@@ -33,4 +33,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "from Paper p,Response r,User u,Score s " +
             "where u.userId=?1 and s.userId=u.userId and s.responseId=r.responseId and r.paperId=p.paperId")
     List<UserAnswerDTO> getUserResponseList(Integer userId);
+
+
+    @Query(value = "delete from user where user_id=?1",nativeQuery = true)
+    @Modifying
+    int deleteUser(Integer userId);
 }

@@ -6,8 +6,13 @@ import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.service.ResponseService;
+import com.glb.sz.util.PageUtil;
 import com.glb.sz.util.ResultUtil;
+import com.glb.sz.util.builder.IPageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +44,14 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     @Transactional
-    public void resetResponse(Integer responseId, String responseDesc, ModifyResult result) {
-        Integer r = responseRepository.resetResponse(responseId,responseDesc);
+    public void resetResponse(Integer responseId,Integer minScore, String responseDesc, ModifyResult result) {
+        Integer r = 0;
+        if(responseDesc != null) {
+            r += responseRepository.resetResponse(responseId, responseDesc);
+        }
+        if(minScore != null){
+            r += responseRepository.resetResponseMinScore(responseId,minScore);
+        }
         if(r == 0){
             ResultUtil.setModifyResult("要修改的信息不存在",false,result);
         }else{
@@ -63,6 +74,12 @@ public class ResponseServiceImpl implements ResponseService {
         }else{
             ResultUtil.setModifyResult(null,true,result);
         }
+    }
+
+    @Override
+    public void getResponse(Integer page, Integer pageSize, BaseResult<Page<Response>> result) {
+        ResultUtil.setBaseResult(PageUtil.getPage(page, pageSize, new Response(1),
+                (IPageBuilder<Response>) (pageRequest, example) -> responseRepository.findAll(example,pageRequest)),result);
     }
 
 

@@ -24,9 +24,13 @@ public interface ResponseRepository extends JpaRepository<Response, Integer> {
             "from Response r where r.paperId=?1 and r.stateId=1")
     List<ResponseWithMinScoreDTO> getResponse(Integer paperId);
 
-    @Query(value = "update response set response_desc=?2 where response_id=?1 and state_id=1",nativeQuery = true)
+    @Query(value = "update response set score_min=?2 where response_id=?1 and state_id=1",nativeQuery = true)
     @Modifying
     Integer resetResponse(Integer responseId,String responseDesc);
+
+    @Query(value = "update response set response_desc=?2 where response_id=?1 and state_id=1",nativeQuery = true)
+    @Modifying
+    Integer resetResponseMinScore(Integer responseId,Integer minScore);
 
     @Query(value = "update response set state_id=2 where response_id=?1 and state_id=1",nativeQuery = true)
     @Modifying

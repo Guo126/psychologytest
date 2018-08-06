@@ -3,6 +3,7 @@ package com.glb.sz.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="user")
@@ -38,6 +39,12 @@ public class User {
     @Column(name = "user_level")
     private Integer userLevel;
 
+    @Column(name = "mail")
+    private String mail;
+
+    @Column(name = "birthday")
+    private Date birthday;
+
     public User(){
 
     }
@@ -57,6 +64,30 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.token = token;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(Integer userLevel) {
+        this.userLevel = userLevel;
     }
 
     public String getToken() {

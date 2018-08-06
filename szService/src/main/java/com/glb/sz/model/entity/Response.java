@@ -35,6 +35,10 @@ public class Response {
 
     }
 
+    public Response(Integer stateId) {
+        this.stateId = stateId;
+    }
+
     public Response(String responseDesc, Integer paperId, Integer scoreMin, Integer stateId) {
         this.responseDesc = responseDesc;
         this.paperId = paperId;

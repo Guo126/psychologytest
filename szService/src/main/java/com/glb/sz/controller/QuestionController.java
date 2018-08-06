@@ -3,10 +3,12 @@ package com.glb.sz.controller;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.QuestionDTO;
+import com.glb.sz.model.entity.Paper;
 import com.glb.sz.model.entity.Question;
 import com.glb.sz.service.QuestionService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,6 +61,13 @@ public class QuestionController {
     public ModifyResult deleteQuestion(@RequestParam("paperId") Integer paperId,
                                        @RequestParam("questionNum") Integer questionNum){
         return ResultUtil.buildModifyResult(result -> questionService.deleteQuestion(paperId,questionNum,result));
+    }
+
+    @GetMapping("/getQuestion")
+    public BaseResult<Page<Question>> getQuestion(@RequestParam("page") Integer page,
+                                                  @RequestParam("pageSize") Integer pageSize,
+                                                  @RequestParam("paperId") Integer paperId) {
+        return ResultUtil.buildBaseResult(result -> questionService.getQuestion(page, pageSize, paperId, result));
     }
 
 
