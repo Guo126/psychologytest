@@ -1,26 +1,29 @@
 package com.glb.sz.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.glb.sz.model.entity.pk.QuestionPK;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "question")
-@IdClass(QuestionPK.class)
 public class Question {
+
+    @Column(name = "question_id")
+    @GeneratedValue
+    @Id
+    private Integer questionId;
 
     @Column(name = "question_desc")
     private
     String questionDesc;
 
-    @Id
+
     @Column(name = "paper_id")
     @JsonIgnore
     private
     Integer paperId;
 
-    @Id
+
     @Column(name = "question_num")
     private Integer questionNum;
 

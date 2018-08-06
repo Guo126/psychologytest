@@ -2,14 +2,13 @@ package com.glb.sz.Repository;
 
 import com.glb.sz.model.dto.QuestionDTO;
 import com.glb.sz.model.entity.Question;
-import com.glb.sz.model.entity.pk.QuestionPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, QuestionPK> {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     @Query(value = "select new com.glb.sz.model.dto.QuestionDTO(q.questionDesc,q.questionNum) from Question q " +
             "where q.paperId=?1 and q.stateId=1")
@@ -26,6 +25,10 @@ public interface QuestionRepository extends JpaRepository<Question, QuestionPK> 
     @Query(value = "update question set question_desc=?3 where paper_id=?1 and question_num=?2 and state_id=1",nativeQuery = true)
     @Modifying
     Integer resetQuestion(Integer paperId,Integer questionNum,String questionDesc);
+
+    @Query(value = "update question set question_desc=?2 where question_id=?1",nativeQuery = true)
+    @Modifying
+    Integer resetQuestion(Integer questionId,String questionDesc);
 
     @Query(value = "update question set state_id=2 where paper_id=?1 and question_num=?2 and state_id=1",nativeQuery = true)
     @Modifying

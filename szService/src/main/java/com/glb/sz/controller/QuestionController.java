@@ -44,10 +44,16 @@ public class QuestionController {
     }
 
     @PostMapping("/reset")
-    public BaseResult<Integer> resetQuestion(@RequestParam("paperId") Integer paperId,
-                                             @RequestParam("questionNum") Integer questionNum,
-                                             @RequestParam("questionDesc") String questionDesc){
-        return ResultUtil.buildBaseResult(result -> questionService.resetQuestion(paperId,questionNum,questionDesc,result));
+    public BaseResult<Integer> resetQuestion(@RequestParam(value = "paperId",required = false) Integer paperId,
+                                             @RequestParam(value = "questionNum",required = false) Integer questionNum,
+                                             @RequestParam(value = "questionId",required = false) Integer questionId,
+                                             @RequestParam("questionDesc") String questionDesc) {
+        if (paperId != null && questionNum != null)
+            return ResultUtil.buildBaseResult(result -> questionService.resetQuestion(paperId, questionNum, questionDesc, result));
+        else if (questionId != null)
+            return ResultUtil.buildBaseResult(result -> questionService.resetQuestion(questionId, questionDesc, result));
+        else
+            return null;
     }
 
     @PostMapping("/add")

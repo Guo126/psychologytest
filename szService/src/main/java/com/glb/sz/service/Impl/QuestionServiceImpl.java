@@ -55,6 +55,18 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    @Transactional
+    public void resetQuestion(Integer questionId, String questionDesc, BaseResult<Integer> result) {
+        Integer i = questionRepository.resetQuestion(questionId,questionDesc);
+        if(i == 0){
+            ResultUtil.setBaseResult("该题目不存在",false,null,result);
+        }else{
+            ResultUtil.setBaseResult(null,true,i,result);
+        }
+
+    }
+
+    @Override
     public void addQuestion(Integer paperId, Integer questionNum, String questionDesc, BaseResult<Question> result) {
         QuestionDTO questionDTO = questionRepository.getAQuestionByPaper(paperId,questionNum);
         if(questionDTO != null){
@@ -64,6 +76,7 @@ public class QuestionServiceImpl implements QuestionService {
         ResultUtil.setBaseResult(questionRepository.save(new Question(questionDesc,paperId,questionNum,1)),result);
 
     }
+
 
     @Override
     @Transactional

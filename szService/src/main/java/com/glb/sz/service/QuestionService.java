@@ -16,6 +16,7 @@ public interface QuestionService {
     void getAQuestionByPaper(Integer paperId,Integer numId,BaseResult<QuestionDTO> result);
     void getQuestionCount(Integer paperId, BaseResult<Integer> result);
     void resetQuestion(Integer paperId,Integer questionNum,String questionDesc,BaseResult<Integer> result);
+    void resetQuestion(Integer questionId,String questionDesc,BaseResult<Integer> result);
     void addQuestion(Integer paperId,Integer questionNum,String questionDesc,BaseResult<Question> result);
     void deleteQuestion(Integer paperId, Integer questionNum, ModifyResult result);
     void getQuestion(Integer page, Integer pageSize,Integer paperId, BaseResult<Page<Question>> result);
