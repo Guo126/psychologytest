@@ -3,6 +3,7 @@ package com.glb.sz.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 
 public class UpdateUtil {
@@ -43,6 +44,11 @@ public class UpdateUtil {
                 if(filedValue instanceof Float){
                     filedValue = Float.parseFloat(value.get(f.getName()));
                 }
+
+                if(filedValue instanceof Date){
+                    filedValue = Date.parse(value.get(f.getName()));
+                }
+
                 if(filedValue != null){
                     String setMethodName = "set" + fieldName.substring(0,1).toUpperCase() + fieldName.substring(1);
                     try {

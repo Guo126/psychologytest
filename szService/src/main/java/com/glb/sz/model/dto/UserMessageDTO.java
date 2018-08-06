@@ -1,5 +1,7 @@
 package com.glb.sz.model.dto;
 
+import java.util.Date;
+
 public class UserMessageDTO {
 
     private String username;
@@ -8,14 +10,25 @@ public class UserMessageDTO {
     private String phone;
     private String sex;
     private String desc;
-    private String email;
+    private String mail;
+    private Date birthday;
 
-    public String getEmail() {
-        return email;
+
+
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getUsername() {
