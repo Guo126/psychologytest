@@ -47,5 +47,14 @@ public class PaperController {
         return ResultUtil.buildModifyResult(result -> paperService.deletePaper(paperId,result));
     }
 
+    @PostMapping("/search")
+    public BaseResult<List<Paper>> search(@RequestParam("paperDesc") String paperDesc){
+        return ResultUtil.buildBaseResult(result -> paperService.search(paperDesc,result));
+    }
+
+    @GetMapping("/getUserPaper")
+    public BaseResult<List<Paper>> getUserPaper(@RequestParam("userId") Integer userId){
+        return ResultUtil.buildBaseResult(result -> paperService.getUserPaper(userId,result));
+    }
 
 }

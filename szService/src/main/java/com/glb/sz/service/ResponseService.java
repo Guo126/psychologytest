@@ -3,6 +3,7 @@ package com.glb.sz.service;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
+import com.glb.sz.model.dto.SearchResponseResultDTO;
 import com.glb.sz.model.entity.Paper;
 import com.glb.sz.model.entity.Response;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -19,4 +20,5 @@ public interface ResponseService {
     void addResponse(String responseDesc, Integer minScore, Integer paperId, ModifyResult result);
     void deleteResponse(Integer responseId, ModifyResult result);
     void getResponse(Integer page,Integer pageSize,BaseResult<Page<Response>> result);
+    void search(String responseDesc, BaseResult<List<SearchResponseResultDTO>> result);
 }

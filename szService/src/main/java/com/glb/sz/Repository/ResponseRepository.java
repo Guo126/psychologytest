@@ -1,6 +1,7 @@
 package com.glb.sz.Repository;
 
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
+import com.glb.sz.model.dto.SearchResponseResultDTO;
 import com.glb.sz.model.entity.Response;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,4 +36,9 @@ public interface ResponseRepository extends JpaRepository<Response, Integer> {
     @Query(value = "update response set state_id=2 where response_id=?1 and state_id=1",nativeQuery = true)
     @Modifying
     Integer deleteResponse(Integer responseId);
+
+    @Query(value = "select new com.glb.sz.model.dto.SearchResponseResultDTO(r.responseDesc,p.paperDesc,r.scoreMin) " +
+            "from Response r,Paper p " +
+            "where r.responseDesc like %?1% and r.paperId=p.paperId and p.stateId=1")
+    List<SearchResponseResultDTO> search(String responseDesc);
 }

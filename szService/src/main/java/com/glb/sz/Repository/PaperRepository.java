@@ -20,4 +20,14 @@ public interface PaperRepository extends JpaRepository<Paper,Integer> {
     @Modifying
     Integer deletePaper(Integer paperId);
 
+    @Query(value = "select * from paper where paper_desc like %?1% and state_id=1",nativeQuery = true)
+    List<Paper> search(String paperDesc);
+
+    @Query(value = "select * from paper  p " +
+            "where not exists(" +
+            "select * from score as s,user as u,response as r " +
+            "where u.user_id=s.user_id and s.response_id=r.response_id and r.paper_id=p.paper_id and u.user_id=?1) " +
+            "and p.state_id=1",
+            nativeQuery = true)
+    List<Paper> getPaperByUser(Integer userId);
 }

@@ -9,6 +9,8 @@ import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/user")
@@ -49,5 +51,10 @@ public class UserController {
     @PostMapping("/delete")
     public ModifyResult delete(@RequestParam("userId") Integer userId){
         return ResultUtil.buildModifyResult(result -> userService.deleteUser(userId,result));
+    }
+
+    @PostMapping("/search")
+    public BaseResult<List<User>> seacrh(@RequestParam("nickname") String nickname){
+        return ResultUtil.buildBaseResult(result -> userService.searchUser(nickname,result));
     }
 }

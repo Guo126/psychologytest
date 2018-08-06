@@ -4,6 +4,7 @@ import com.glb.sz.Repository.ResponseRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
+import com.glb.sz.model.dto.SearchResponseResultDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.service.ResponseService;
 import com.glb.sz.util.PageUtil;
@@ -81,6 +82,17 @@ public class ResponseServiceImpl implements ResponseService {
         ResultUtil.setBaseResult(PageUtil.getPage(page, pageSize, new Response(1),
                 (IPageBuilder<Response>) (pageRequest, example) -> responseRepository.findAll(example,pageRequest)),result);
     }
+
+    @Override
+    public void search(String responseDesc, BaseResult<List<SearchResponseResultDTO>> result) {
+        List<SearchResponseResultDTO> searchResponseResultDTOList = responseRepository.search(responseDesc);
+        if(searchResponseResultDTOList.size() == 0){
+            ResultUtil.setBaseResult("没有相应的信息",false,searchResponseResultDTOList,result);
+        }else{
+            ResultUtil.setBaseResult("查找成g",true,searchResponseResultDTOList,result);
+        }
+    }
+
 
 
 }

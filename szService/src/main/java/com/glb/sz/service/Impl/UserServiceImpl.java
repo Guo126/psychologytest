@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -94,5 +96,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Integer userId, ModifyResult result) {
         ResultUtil.setModifyResult(null, userRepository.deleteUser(userId) == 1,result);
+    }
+
+    @Override
+    public void searchUser(String nickname, BaseResult<List<User>> result) {
+        List<User> userList = userRepository.searchUser(nickname);
+        if(userList.size() == 0){
+            ResultUtil.setBaseResult("用户不存在",false,null,result);
+        }else{
+            ResultUtil.setBaseResult("搜索成功",true,userList,result);
+        }
+
     }
 }

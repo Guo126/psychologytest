@@ -1,8 +1,10 @@
 package com.glb.sz.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
+import com.glb.sz.model.dto.SearchResponseResultDTO;
 import com.glb.sz.model.entity.Response;
 import com.glb.sz.model.entity.ResponseImg;
 import com.glb.sz.service.ResponseImgService;
@@ -78,4 +80,8 @@ public class ResponseController {
         return ResultUtil.buildBaseResult(result -> responseService.getResponse(page,pageSize,result));
     }
 
+    @PostMapping("/search")
+    public BaseResult<List<SearchResponseResultDTO>> search(@RequestParam("responseDesc") String responseDesc){
+        return ResultUtil.buildBaseResult(result -> responseService.search(responseDesc,result));
+    }
 }

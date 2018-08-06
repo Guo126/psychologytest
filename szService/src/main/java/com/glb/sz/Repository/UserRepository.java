@@ -38,4 +38,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "delete from user where user_id=?1",nativeQuery = true)
     @Modifying
     int deleteUser(Integer userId);
+
+    @Query(value = "select * from user where nickname like %?1%",nativeQuery = true)
+    List<User> searchUser(String nickname);
 }

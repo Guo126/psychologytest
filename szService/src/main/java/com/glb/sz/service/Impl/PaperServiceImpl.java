@@ -64,4 +64,19 @@ public class PaperServiceImpl implements PaperService {
             ResultUtil.setModifyResult("删除成功",true,result);
         }
     }
+
+    @Override
+    public void search(String paperDesc, BaseResult<List<Paper>> result) {
+        List<Paper> paperList = paperRepository.search(paperDesc);
+        if(paperList.size() == 0){
+            ResultUtil.setBaseResult("卷子不存在啊喂",false,null,result);
+        }else{
+            ResultUtil.setBaseResult("这就是你要的卷子啊",true,paperList,result);
+        }
+    }
+
+    @Override
+    public void getUserPaper(Integer userId, BaseResult<List<Paper>> result) {
+        ResultUtil.setBaseResult(paperRepository.getPaperByUser(userId),result);
+    }
 }

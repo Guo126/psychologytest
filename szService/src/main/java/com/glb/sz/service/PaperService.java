@@ -14,4 +14,6 @@ public interface PaperService {
     void renamePaper(Integer paperId,String newName,BaseResult<Integer> result);
     void addPaper(String paperName,BaseResult<Paper> result);
     void deletePaper(Integer paperId, ModifyResult result);
+    void search(String paperDesc,BaseResult<List<Paper>> result);
+    void getUserPaper(Integer userId,BaseResult<List<Paper>>result);
 }
