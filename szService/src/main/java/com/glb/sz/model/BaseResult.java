@@ -3,7 +3,7 @@ package com.glb.sz.model;
 public class BaseResult<T> {
 
     private String message;
-    private boolean success;
+    private boolean success = false;
     private T data;
 
     public BaseResult(){

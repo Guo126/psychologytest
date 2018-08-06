@@ -53,7 +53,7 @@ public class QuestionController {
         else if (questionId != null)
             return ResultUtil.buildBaseResult(result -> questionService.resetQuestion(questionId, questionDesc, result));
         else
-            return null;
+            return new BaseResult<>();
     }
 
     @PostMapping("/add")
