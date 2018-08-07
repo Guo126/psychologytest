@@ -1,7 +1,6 @@
 <template >  
        <div class="app-container" > &nbsp;&nbsp;&nbsp; 
-        <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>&nbsp;&nbsp;&nbsp;    
-        <el-button type="primary" icon="el-icon-search">搜索</el-button> 
+       
         <div style="float:right">
         <el-button type="primary" icon="el-icon-plus"  @click="dialogFormVisible=true">添加</el-button> 
         <el-dialog title="添加报告" :visible.sync="dialogFormVisible">
@@ -25,7 +24,7 @@
         <div style="padding: 14px;">
              <!-- <span>第{{o.responseId}}份报告</span>&nbsp;&nbsp;&nbsp; -->
              <span>最低分数为 <el-input v-model="o.minScore"  style="width:50px"> </el-input>分</span>
-             <el-button type="primary"  @click="resetResponse(o.responseId,o.responseDesc)" style="float:right">保存</el-button> &nbsp; &nbsp;
+             <el-button type="primary"  @click="resetResponse(o.responseId,o.minScore,o.responseDesc)" style="float:right">保存</el-button> &nbsp; &nbsp;
              <el-button type="primary"  @click="deleteButton(o.responseId);dialogVisible = true" style="float:right">删除</el-button>  &nbsp; &nbsp;
              <el-dialog
               title="提示"
@@ -60,31 +59,15 @@
           </div>
         </div>
         
-      </el-card>
-         
-
-        <div class="block" style=" margin-left:36% ; margin-top:100px">
-            <span class="demonstration"></span>
-            <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="4"
-            layout="prev, pager, next, jumper"
-            :total="list.length">
-            </el-pagination>
-        </div>    
-        
-      
+      </el-card>            
     </div>
     
 </template>
 
 <script>
-import {getRes} from "@/api/change";
-import {addRes} from "@/api/change"; 
-import {deleteRes} from "@/api/change"; 
-import {resetRes} from "@/api/change"; 
+import {getRes,addRes,deleteRes,resetRes} from "@/api/change";
+import {getResponsePage} from "@/api/test"; 
+
 import urls from "urls-js";
 
 
@@ -137,8 +120,8 @@ import urls from "urls-js";
               this.dialogImageUrl = file.url;
               this.dialogVisible = true;
             },
-            resetResponse(id,desc){
-              resetRes(id,desc).then(response=>{
+            resetResponse(id,min,desc){
+              resetRes(id,min,desc).then(response=>{
                   if(response.success){                     
                       alert("修改成功！")
                       location.reload()

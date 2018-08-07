@@ -1,5 +1,7 @@
 <template>
   <div class="app-container">
+     <el-input v-model="search" placeholder="请输入内容" style="float:left;width:400px"></el-input>&nbsp;&nbsp;&nbsp;    
+            <el-button type="primary" icon="el-icon-search" @click=" papersSearch">搜索</el-button>  </br></br></br>
       <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px' }"  :style="{'background-color':colors[index%3] }" style="margin-top:6px">
         <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
 
@@ -28,6 +30,7 @@
 
 <script>
 import {getPaper} from "@/api/test";
+import {paperSearch} from "@/api/search";
 export default {
   data() {
     return {
@@ -40,7 +43,8 @@ export default {
         "#58D3F7",
         '#F5A9E1',
         '#81F79F'
-      ]
+      ],
+      search:'',
 
     };
   },
@@ -50,6 +54,13 @@ export default {
   },
   
   methods:{
+    papersSearch(){
+        paperSearch(this.search).then(response=>{
+          if(response.success){                        
+              this.list = response.data                   
+          }
+        })
+      },
     handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },

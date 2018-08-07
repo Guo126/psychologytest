@@ -60,11 +60,8 @@ export default{
     created(){
         this.testId = urls.parse().hash['testId']
         this.userId = Cookie.get("userId")
-        this.getMaxnum();
-        
-        this.getQuestions();
-        
-        
+        this.getMaxnum();        
+        this.getQuestions();      
     },
 
     methods:{
@@ -72,6 +69,7 @@ export default{
         getMaxnum(){
             getCount(this.testId).then(response=>{
                 this.maxnum = response.data;
+                alert(this.maxnum)
             })
         },
 

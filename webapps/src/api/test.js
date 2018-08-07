@@ -51,3 +51,11 @@ export function getResByScore(paperId,score){
         params:{paperId,score}
     })
 }
+
+export function getResponsePage(page,pageSize){
+    return request({
+        url:'/response/getResponseWithPage',
+        method:'get',
+        params:{page,pageSize}
+    })
+}
