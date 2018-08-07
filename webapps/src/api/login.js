@@ -29,12 +29,27 @@ export function logout(userId) {
   })
 }
 
-
 export function getUserInfo(userId) {
   
   return request({
     url: '/user/login',
     method: 'post',
     params: { userId }
+  })
+}
+
+export function userSearch(nickname){
+  return request({
+    url: '/user/search',
+    method: 'post',
+    params:{nickname}
+  })
+}
+
+export function userDelete(userId){
+  return request({
+    url: '/user/delete',
+    method: 'post',
+    params:{userId}
   })
 }

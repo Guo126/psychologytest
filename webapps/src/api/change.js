@@ -40,6 +40,14 @@ export function deletePaper(paperId){
     })
 }
 
+export function quesPage(page,pageSize,paperId){
+    return request({
+        url:'/question/getQuestion',
+        method:'get',
+        params:{page,pageSize,paperId}
+    })
+}
+
 export function addQues(paperId,questionNum,questionDesc){
     return request({
         url:'/question/add',
@@ -79,11 +87,11 @@ export function deleteRes(responseId){
     })
 }
 
-export function resetRes(responseId,responseDesc){
+export function resetRes(responseId,minScore,responseDesc){
     return request({
         url:'/response/reset',
         method:'post',
-        params:{responseId,responseDesc}
+        params:{responseId,minScore,responseDesc}
     })
 }
 

@@ -32,10 +32,11 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.data
-          Cookie.set('userLevel',2)
+          Cookie.set('userLevel',data.userLevel)
           Cookie.set('userId',data.userId)
           Cookie.set('userNick',data.nickname)
           Cookie.set('userPhone',data.phone)
+          Cookie.set('userMail',data.mail)
           Cookie.set('userName',data.username)
           
           setToken(data.token)

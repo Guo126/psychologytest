@@ -1,17 +1,14 @@
 <template>
     <div class="app-container" >&nbsp;&nbsp;&nbsp;     
-        <el-input v-model="input" placeholder="请输入内容" style="float:left;width:400px"></el-input>&nbsp;&nbsp;&nbsp;    
-            <el-button type="primary" icon="el-icon-search">搜索</el-button>                
+        <el-input v-model="search" placeholder="请输入试卷名称" style="float:left;width:400px"></el-input>&nbsp;&nbsp;&nbsp;    
+            <el-button type="primary" icon="el-icon-search" @click=" papersSearch">搜索</el-button>                
                 <el-button type="primary" icon="el-icon-plus" style="float:right" @click="dialogFormVisible=true">添加</el-button> 
                  <el-dialog title="添加试卷" :visible.sync="dialogFormVisible">
                   <el-form >
                     <el-form-item label="试卷名称" label-width="80px">
                       <el-input v-model="addName" auto-complete="off" ></el-input>
                     </el-form-item>
-                    <el-form-item label="报告内容" label-width="80px">
-                      <el-input v-model="addDesc" auto-complete="off" type="textarea" :rows="8"></el-input>
-                    </el-form-item> 
-                          </el-form>
+                  </el-form>
                   <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
                     <el-button type="primary" @click="dialogFormVisible = false; addPapers()">确 定</el-button>
@@ -61,15 +58,13 @@
 
 <script>
 import {getPaper} from "@/api/test";
-import {deletePaper} from "@/api/change";
-import {namePaper} from "@/api/change";
-import {addPaper} from '@/api/change';
-
+import {deletePaper,namePaper,addPaper} from "@/api/change";
+import {paperSearch} from "@/api/search";
 
 export default {
 
   created(){
-    this.getPaperInfo(); 
+     this.getPaperInfo(); 
   },
 
   data() {
@@ -83,6 +78,7 @@ export default {
       index: -1,
       total:0,
       addName:'',
+      search: '',
     };
   },
   
@@ -93,6 +89,15 @@ export default {
         this.index = paperid
         
       },
+
+      papersSearch(){
+        paperSearch(this.search).then(response=>{
+          if(response.success){                        
+              this.list = response.data                   
+          }
+        })
+      },
+
 
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -107,9 +112,7 @@ export default {
           if(response.success){
             this.list = response.data.content
             this.lists = response.data.pageable
-            this.total = response.data.totalElements
-            
-            console.log(response.data)
+            this.total = response.data.totalElements          
          }
       })
     },

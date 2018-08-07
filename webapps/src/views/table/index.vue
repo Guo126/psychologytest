@@ -36,7 +36,7 @@
         已完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18"  :percentage="60" color="#01DF3A">
+        <el-progress :text-inside="true" :stroke-width="18"  :percentage="per" color="#01DF3A">
         </el-progress>
         </br></br>
         <el-button style="float: left; padding: 3px 0" type="text ;color:white" @click="toReport">查看报告</el-button>
@@ -47,23 +47,23 @@
     
     
      <el-card class="box-card3" style="background-color:#FA5858 ; float:left ">  
-       <el-progress type="circle" :percentage="40" status="success" style=" float:left"></el-progress>
+       <el-progress type="circle" :percentage="per" status="success" style=" float:left"></el-progress>
       <div class="text"  style="color:white ;float:right; margin-right:40px ">
         已完成评测
         </br></br></br>
-         &nbsp; &nbsp; &nbsp;40%
+         &nbsp; &nbsp; &nbsp;{{per}}%
          </br></br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
 
       </div>
      </el-card>
      <el-card class="box-card3" style="background-color:#FFBF00; float:left">
-      <el-progress type="circle" :percentage="60" status="exception" style=" float:left"></el-progress>
+      <el-progress type="circle" :percentage="per2" status="exception" style=" float:left"></el-progress>
       
       <div class="text"  style="color:white ;float:right; margin-right:40px ">
           未完成评测 
          </br></br></br>
-         &nbsp; &nbsp; &nbsp;60%
+         &nbsp; &nbsp; &nbsp;{{per2}}%
          </br></br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
   
@@ -76,7 +76,7 @@
         待完成评测
         </br>
         </br></br>
-        <el-progress :text-inside="true" :stroke-width="18" :percentage="40" color="#FF0040">
+        <el-progress :text-inside="true" :stroke-width="18" :percentage="per2" color="#FF0040">
         </el-progress>
         </br></br>
         <el-button style="float: left; padding: 3px 0 ;color:white" type="text" @click="toTest">开始测评</el-button>
@@ -122,10 +122,10 @@
 
 
 <script>
-
-
-import { getList } from '@/api/table'
-import { mapGetters } from 'vuex'
+import {getPaper} from "@/api/test";
+import {getResponse} from '@/api/test'
+import {getList } from '@/api/table'
+import {mapGetters } from 'vuex'
 import Cookie from 'js-cookie'
 
 export default {
@@ -137,9 +137,10 @@ export default {
       username:'',
       mail:'',
       phone:'',
-      
-      
-      
+      count:0,
+      total:0,
+      per:0,
+      per2:0,
     }
   },
   filters: {
@@ -156,8 +157,9 @@ export default {
     this.userId = Cookie.get("userId");
     this.username = Cookie.get("userName");
     this.phone = Cookie.get("userPhone");
-    this.mail = Cookie.get("userPhone");
-    
+    this.mail = Cookie.get("userMail");
+    this.getCount();
+    this.getTotal();
   },
   computed:{
 
@@ -167,6 +169,23 @@ export default {
     ])
   },
   methods: {
+
+    getCount(){
+        getResponse(this.userId).then(response=>{
+          if(response.success){
+            this.count = response.data.length            
+          }
+        })
+    },
+     getTotal(){
+        getPaper(0,4).then(response=>{
+          if(response.success){
+            this.total = response.data.totalElements               
+            this.per = parseInt(this.count*100/this.total)  
+            this.per2 = 100-this.per           
+         }
+      })
+    },
     
     toReport(){
       this.$router.push("/example/report");
