@@ -19,6 +19,21 @@ public class Paper {
     @Column(name ="state_id")
     private Integer stateId;
 
+    public Paper(){
+
+    }
+
+    public Paper(String paperDesc, Integer stateId) {
+        this.paperDesc = paperDesc;
+        this.stateId = stateId;
+    }
+
+    public Paper(Integer paperId, String paperDesc, Integer stateId) {
+        this.paperId = paperId;
+        this.paperDesc = paperDesc;
+        this.stateId = stateId;
+    }
+
     public Integer getStateId() {
         return stateId;
     }

@@ -49,8 +49,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public void addPaper(String paperName, BaseResult<Paper> result) {
-        Paper paper = new Paper();
-        paper.setPaperDesc(paperName);
+        Paper paper = new Paper(paperName,1);
         ResultUtil.setBaseResult(paperRepository.save(paper),result);
     }
 
