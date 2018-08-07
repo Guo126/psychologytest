@@ -36,7 +36,7 @@ public class QuestionController {
     }
 
 
-    @GetMapping("/paperCount")
+    @GetMapping("/questionCount")
     public BaseResult<Integer> getPaperCount(@RequestParam("paperId") Integer paperId){
         BaseResult<Integer> result =new BaseResult<>();
         questionService.getQuestionCount(paperId,result);
