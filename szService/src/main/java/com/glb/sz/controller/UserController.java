@@ -9,6 +9,7 @@ import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,8 +23,13 @@ public class UserController {
     @PostMapping("/register")
     public BaseResult<User> register(@RequestParam("username") String username,
                                      @RequestParam("nickname") String nickname,
-                                     @RequestParam("password") String password) {
-        return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,result));
+                                     @RequestParam("password") String password,
+                                     @RequestParam(value = "sex",required = false) String sex,
+                                     @RequestParam(value = "phone",required = false)String phone,
+                                     @RequestParam(value = "mail",required = false) String mail,
+                                     @RequestParam(value = "desc",required = false) String desc,
+                                     @RequestParam(value = "birthday",required = false)Date birthday) {
+        return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,sex,phone,mail,desc,birthday,result));
     }
 
     @GetMapping("/getUser")

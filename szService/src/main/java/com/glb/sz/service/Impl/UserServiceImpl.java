@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,18 +62,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(String username, String nickname, String password, BaseResult<User> result) {
-
+    public void register(String username, String nickname, String password,
+                         String sex, String phone, String mail, String desc, Date birthday, BaseResult<User> result) {
         User u = userRepository.getUser(username, password);
         if (u != null) {
             ResultUtil.setBaseResult("账号已存在", false, null, result);
         }
 
         User user = new User(username, MD5Util.getMD5String(password), nickname, "offline");
+        if(sex != null){
+            user.setSex(sex);
+        }
+        if(phone!= null){
+            user.setPhone(phone);
+        }
+        if(mail != null){
+            user.setMail(mail);
+        }
+        if(desc!= null){
+            user.setDesc(desc);
+        }
+        if(birthday!= null){
+            user.setBirthday(birthday);
+        }
         userRepository.save(user);
-
         ResultUtil.setBaseResult(user, result);
     }
+
 
     @Override
     public void changeUserMessage(Integer userId, UserMessageDTO userMessageDTO, BaseResult<User> result) {
