@@ -1,6 +1,7 @@
 package com.glb.sz.service.Impl;
 
 
+import antlr.StringUtils;
 import com.glb.sz.Repository.UserRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.plaf.TextUI;
 import java.util.Date;
 import java.util.List;
 
@@ -62,30 +64,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void register(String username, String nickname, String password,
                          String sex, String phone, String mail, String desc, Date birthday, BaseResult<User> result) {
         User u = userRepository.getUser(username, password);
         if (u != null) {
             ResultUtil.setBaseResult("账号已存在", false, null, result);
+            return;
         }
 
+        userRepository.saveUser(username, MD5Util.getMD5String(password), nickname,
+                sex == null ? "" : sex,
+                phone == null ? "" : phone,
+                mail == null ? "" : mail,
+                desc == null ? "" : desc,
+                birthday == null ? new Date() : birthday,
+                "notOnline");
         User user = new User(username, MD5Util.getMD5String(password), nickname, "offline");
-        if(sex != null){
+        if (sex != null) {
             user.setSex(sex);
         }
-        if(phone!= null){
+        if (phone != null) {
             user.setPhone(phone);
         }
-        if(mail != null){
+        if (mail != null) {
             user.setMail(mail);
         }
-        if(desc!= null){
+        if (desc != null) {
             user.setDesc(desc);
         }
-        if(birthday!= null){
+        if (birthday != null) {
             user.setBirthday(birthday);
         }
-        userRepository.save(user);
+//        userRepository.save(user);
         ResultUtil.setBaseResult(user, result);
     }
 
@@ -98,11 +109,16 @@ public class UserServiceImpl implements UserService {
             return;
         }
 
-        user = UpdateUtil.updateAObj(user,userMessageDTO.toString());
+        //将密码加密
+        if(userMessageDTO.getPassword() != null && !userMessageDTO.getPassword().equals("")) {
+            userMessageDTO.setPassword(MD5Util.getMD5String(userMessageDTO.getPassword()));
+        }
+        user = UpdateUtil.updateAObj(user,userMessageDTO);
         if(user == null){
             ResultUtil.setBaseResult("用户保存失败",false,null,result);
             return;
         }
+
 
         userRepository.save(user);
         ResultUtil.setBaseResult("用户保存成功",true,user,result);

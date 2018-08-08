@@ -10,7 +10,7 @@ import java.util.Date;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="user_id")
     private
     Integer userId;
@@ -30,7 +30,7 @@ public class User {
     @Column(name = "sex")
     private String sex;
 
-    @Column(name = "desc")
+    @Column(name = "self_desc")
     private String desc;
 
     @Column(name = "token")

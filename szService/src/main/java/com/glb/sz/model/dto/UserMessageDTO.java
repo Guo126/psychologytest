@@ -9,7 +9,7 @@ public class UserMessageDTO {
     private String nickname;
     private String phone;
     private String sex;
-    private String desc;
+    private String self_desc;
     private String mail;
     private Date birthday;
 
@@ -71,12 +71,12 @@ public class UserMessageDTO {
         this.sex = sex;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getSelf_desc() {
+        return self_desc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setSelf_desc(String self_desc) {
+        this.self_desc = self_desc;
     }
 
     @Override
@@ -87,6 +87,6 @@ public class UserMessageDTO {
                 ",nickname='" + nickname + '\'' +
                 ",phone='" + phone + '\'' +
                 ",sex='" + sex + '\'' +
-                ",desc='" + desc;
+                ",self_desc='" + self_desc;
     }
 }
