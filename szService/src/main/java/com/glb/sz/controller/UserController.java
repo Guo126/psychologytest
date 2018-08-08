@@ -9,8 +9,11 @@ import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 
 @RestController
@@ -28,8 +31,15 @@ public class UserController {
                                      @RequestParam(value = "phone",required = false)String phone,
                                      @RequestParam(value = "mail",required = false) String mail,
                                      @RequestParam(value = "desc",required = false) String desc,
-                                     @RequestParam(value = "birthday",required = false)Date birthday) {
-        return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,sex,phone,mail,desc,birthday,result));
+                                     @RequestParam(value = "birthday",required = false)String b) {
+        Date birthday = null;
+        try {
+            birthday = new SimpleDateFormat("yyMMdd").parse(b);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date finalBirthday = birthday;
+        return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,sex,phone,mail,desc, finalBirthday,result));
     }
 
     @GetMapping("/getUser")
