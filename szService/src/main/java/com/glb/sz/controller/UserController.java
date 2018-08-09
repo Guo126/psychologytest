@@ -31,16 +31,8 @@ public class UserController {
                                      @RequestParam(value = "phone",required = false)String phone,
                                      @RequestParam(value = "mail",required = false) String mail,
                                      @RequestParam(value = "desc",required = false) String desc,
-                                     @RequestParam(value = "birthday",required = false)String b) {
-        Date birthday = null;
-        if(b != null) {
-            try {
-                birthday = new SimpleDateFormat("yyyyMMdd").parse(b);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        Date finalBirthday = birthday;
+                                     @RequestParam(value = "birthday",required = false)Date finalBirthday) {
+
         return ResultUtil.buildBaseResult(result -> userService.register(username,nickname,password,sex,phone,mail,desc, finalBirthday,result));
     }
 

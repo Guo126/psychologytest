@@ -1,5 +1,6 @@
 package com.glb.sz.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -43,6 +44,7 @@ public class User {
     private String mail;
 
     @Column(name = "birthday")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date birthday;
 
     public User(){
@@ -74,6 +76,7 @@ public class User {
         this.mail = mail;
     }
 
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     public Date getBirthday() {
         return birthday;
     }
