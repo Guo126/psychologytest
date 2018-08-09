@@ -35,7 +35,7 @@ public class UserController {
         Date birthday = null;
         if(b != null) {
             try {
-                birthday = new SimpleDateFormat("yyMMdd").parse(b);
+                birthday = new SimpleDateFormat("yyyyMMdd").parse(b);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
