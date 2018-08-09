@@ -1,6 +1,6 @@
 package com.glb.sz.service.Impl;
 
-import com.glb.sz.Repository.PaperRepository;
+import com.glb.sz.repository.PaperRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.entity.Paper;

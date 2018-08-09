@@ -1,8 +1,7 @@
 package com.glb.sz.service.Impl;
 
 
-import antlr.StringUtils;
-import com.glb.sz.Repository.UserRepository;
+import com.glb.sz.repository.UserRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.UserMessageDTO;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.plaf.TextUI;
 import java.util.Date;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.glb.sz.service.Impl;
 
-import com.glb.sz.Repository.ResponseRepository;
+import com.glb.sz.repository.ResponseRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
@@ -11,9 +11,7 @@ import com.glb.sz.util.PageUtil;
 import com.glb.sz.util.ResultUtil;
 import com.glb.sz.util.builder.IPageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

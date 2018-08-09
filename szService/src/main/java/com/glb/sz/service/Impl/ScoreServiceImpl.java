@@ -1,6 +1,6 @@
 package com.glb.sz.service.Impl;
 
-import com.glb.sz.Repository.ScoreRepository;
+import com.glb.sz.repository.ScoreRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.entity.Score;
 import com.glb.sz.service.ScoreService;

@@ -1,12 +1,10 @@
-package com.glb.sz.Repository;
+package com.glb.sz.repository;
 
-import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.dto.UserAnswerDTO;
 import com.glb.sz.model.entity.Score;
 import com.glb.sz.model.entity.pk.Score_ID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

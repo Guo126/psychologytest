@@ -1,7 +1,6 @@
 package com.glb.sz.service.Impl;
 
-import com.glb.sz.Repository.ScoreRepository;
-import com.glb.sz.Repository.UserRepository;
+import com.glb.sz.repository.ScoreRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.dto.UserAnswerDTO;
 import com.glb.sz.service.UserAnswerService;

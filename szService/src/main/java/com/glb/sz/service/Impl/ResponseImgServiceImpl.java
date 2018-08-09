@@ -1,6 +1,6 @@
 package com.glb.sz.service.Impl;
 
-import com.glb.sz.Repository.ResponseImgRepository;
+import com.glb.sz.repository.ResponseImgRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.entity.ResponseImg;
 import com.glb.sz.service.ResponseImgService;

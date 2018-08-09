@@ -1,4 +1,4 @@
-package com.glb.sz.Repository;
+package com.glb.sz.repository;
 
 import com.glb.sz.model.dto.ResponseWithMinScoreDTO;
 import com.glb.sz.model.dto.SearchResponseResultDTO;
