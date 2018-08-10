@@ -17,6 +17,7 @@
                   <el-card  v-for="(o,index) in list" :key="o.paperId" :body-style="{ padding: '20px'}">
                 <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
                     <div style="padding: 14px;">
+                     
                       <el-input v-model="o.paperDesc" style="width:500px"> </el-input>
                         <el-button type="primary" @click="renamePaper(o.paperId,o.paperDesc)">保存</el-button>
                           <div class="bottom clearfix">
@@ -45,7 +46,7 @@
             <div class="block" style=" margin-left:40% ; margin-top:100px">
                 <span class="demonstration"></span>
                 <el-pagination
-                @size-change="handleSizeChange"
+                
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="4"
@@ -79,10 +80,12 @@ export default {
       total:0,
       addName:'',
       search: '',
+  
     };
   },
   
   methods:{
+
    
       deleteButton(paperid){
         
@@ -98,14 +101,10 @@ export default {
         })
       },
 
-
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
       handleCurrentChange(val) {
         this.currentPage = val
         this.getPaperInfo()
-        console.log(`当前页: ${val}`);
+       
       },
       getPaperInfo(){
         getPaper(this.currentPage-1,4).then(response=>{
@@ -119,10 +118,10 @@ export default {
     addPapers(){
       addPaper(this.addName).then(response=>{
         if(response.success){     
-           alert("添加成功！")
+           this.$message.success("添加成功！") 
            location.reload()
         }else{
-          alert("添加失败！")
+          this.$message.error('添加失败！');
         }
       })
         
@@ -131,12 +130,11 @@ export default {
     renamePaper(nowId,newName){
       
       namePaper(nowId,newName).then(response=>{
-         if(response.success){
+         if(response.success){          
+           this.$message.success("修改成功！") 
            
-           alert("修改成功！")
-           location.reload()
          }else{
-           alert("修改失败！")
+           this.$message.error('修改失败！');
          }
        })
     },
@@ -146,10 +144,10 @@ export default {
          
           
          if(response.success){
-           alert("删除成功！")
+           this.$message.success("删除成功！") 
            location.reload()
          }else{
-           alert("删除失败！")
+           this.$message.error('删除失败！');
          }
        })
        

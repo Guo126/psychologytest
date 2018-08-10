@@ -61,9 +61,7 @@ export default {
           }
         })
       },
-    handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
+   
     handleCurrentChange(val) {
         this.currentPage = val
         this.getPapers()       

@@ -95,5 +95,38 @@ export function resetRes(responseId,minScore,responseDesc){
     })
 }
 
+ export function userChange(userId,form){
+     return request({
+         url:'/user/change',
+         method:'post',
+         params:{userId},
+         data:{username:form.username,
+               password:form.password,
+               nickname:form.nickname,
+               phone:form.phone,
+               sex:form.sex,
+               
+               mail:form.mail,
+               birthday:form.birthday},
+     })
+ }
+
+ export function getImg(responseId){
+     return request({
+         url:'/response/getImg',
+         method:'get',
+         params:{responseId}
+     })
+ }
+
+ export function saveImg(params){
+    return request({
+        url:'/response/saveImg',
+        method:'post',
+        params:{params},
+        
+    })
+ }
+
 
 

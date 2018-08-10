@@ -71,13 +71,7 @@ export const constantRouterMap = [
         component: () => import('@/views/report/index'),
         meta: { title: '查看报告', icon: 'table' }
       },
-      {
-        path: 'details',
-        name: 'Details',
-        component: () => import('@/views/report/details'),
-        meta: { title: '报告详情' },
-        hidden:true
-      },
+     
     ]
   },
 
@@ -134,54 +128,15 @@ export const constantRouterMap = [
      
     ]
   },
+  
+  
 
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 export const asyncRouterMap = [
-  {
-    path: '/admin',
-    component:Layout,  
-    meta: { title: '管理员', icon: 'example' },  
-    children:[
-      {
-        path: 'userMes',
-        name: 'Usermes',
-        
-        component: () => import('@/views/admin/userMes'),
-        meta: { title: '用户管理', icon: 'example' },
-        
-      },
-      {
-        path: 'papers',
-        name: 'Papers',     
-        component: () => import('@/views/admin/papers'),
-        meta: { title: '试题管理', icon: 'example' },
-        
-      },
-     
-      
-      {
-        path: 'changequestion',
-        name: 'changeq',     
-        component: () => import('@/views/admin/changequestion'),
-        meta: { title: '修改题目', icon: 'example' },
-        hidden :true
-      },
-      
-      {
-        path: 'changeresponse',
-        name: 'changer',     
-        component: () => import('@/views/admin/changeresponse'),
-        meta: { title: '修改报告', icon: 'example' },
-        hidden :true
-      },
-      
-     
-    ]
-  },
-
-  { path: '*', redirect: '/404', hidden: true }
+  
+  
 ]
 
 
@@ -190,6 +145,6 @@ export default new Router({
   // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap ,
-  adminRoutes: asyncRouterMap
+  
 })
 
