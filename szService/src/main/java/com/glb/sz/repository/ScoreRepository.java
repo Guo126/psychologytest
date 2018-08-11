@@ -17,7 +17,7 @@ public interface ScoreRepository extends JpaRepository<Score,Score_ID> {
     @Query(value = "select * from score where user_id=?1 and response_id=?2",nativeQuery = true)
     Score getUserScore(Integer userId,Integer responseId);
 
-    @Query(value = "select new com.glb.sz.model.dto.UserAnswerDTO(u.nickname,r.responseDesc,p.paperDesc) " +
+    @Query(value = "select new com.glb.sz.model.dto.UserAnswerDTO(r.responseId,u.nickname,r.responseDesc,p.paperDesc) " +
             "from User u,Response r,Paper p,Score s " +
             "where u.userId=?1 and u.userId=s.userId and s.responseId=r.responseId and r.paperId=p.paperId")
     List<UserAnswerDTO> getUserAnswer(Integer userId);

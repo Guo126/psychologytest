@@ -2,6 +2,7 @@ package com.glb.sz.model.dto;
 
 public class UserAnswerDTO {
 
+    private Integer responseId;
     private String nickname;
     private String responseDesc;
     private String paperDesc;
@@ -10,10 +11,25 @@ public class UserAnswerDTO {
 
     }
 
+    public UserAnswerDTO(Integer responseId, String nickname, String responseDesc, String paperDesc) {
+        this.responseId = responseId;
+        this.nickname = nickname;
+        this.responseDesc = responseDesc;
+        this.paperDesc = paperDesc;
+    }
+
     public UserAnswerDTO(String nickname, String responseDesc, String paperDesc) {
         this.nickname = nickname;
         this.responseDesc = responseDesc;
         this.paperDesc = paperDesc;
+    }
+
+    public Integer getResponseId() {
+        return responseId;
+    }
+
+    public void setResponseId(Integer responseId) {
+        this.responseId = responseId;
     }
 
     public String getNickname() {
