@@ -6,9 +6,7 @@
              <span>{{o.paperDesc}}&nbsp;&nbsp;报告</span>&nbsp;&nbsp;&nbsp;
             </br></br>
           <span >{{o.responseDesc}} </span>         
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>       
-          </div>
+          
         </div>       
       </el-card>
     </div>

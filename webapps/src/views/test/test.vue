@@ -1,29 +1,29 @@
 <template >
     
        <div class="app-container" >
-           </br> </br> 
+           </br> 
             <el-progress :percentage="per" ></el-progress>
-        <el-card  shadow="hover" class="box-card" :v-show="show">          
+        <el-card  shadow="hover" class="box-card" style="margin-top:50px;width:600px">          
             <span>第{{num}}题</span>
-            </br></br>
+            </br></br> </br>
             <div  class="text item"   v-loading="loading">
-                &nbsp;&nbsp;&nbsp;&nbsp;{{question}}
+                &nbsp;&nbsp;&nbsp;&nbsp;{{question[num-1].desc}}
             </div>
-            </br></br>
+            </br>
             <div class="block">
-                <span class="demonstration">从下面5个级别中选择答案</span>
+                <span class="demonstration">请从下面5个级别中选择答案</span>
                 </br> </br> </br>
                 <el-slider
                 v-model="answer"
                 :step="1"
-                max = 5
+                :max = 4
                 show-stops>
                 </el-slider>
-                </br></br></br>
+                </br></br>
                 <el-button style="float: right; padding: 3px 0" type="text"  @click = "nextQuestion">下一题</el-button>
                 </br>
-            </div>
-  
+            </div></br></br>
+            <span>0:非常不符合（0分）  1:比较不符合（1分）    2:不确定（2分）    3:比较符合（3分）    4:非常符合（4分）</span>
         </el-card>
 
         
@@ -45,14 +45,14 @@ export default{
             userId:undefined,
             testId:undefined,
             num : 1 ,
-            question : '' ,
+            question : []  ,
             answer : 0 ,
             loading:true,
             maxnum: 0 ,
             per: 0 ,
             responseId:0,
             score: 0 ,
-            list:[] ,
+            
         }
         
     },
@@ -69,19 +69,18 @@ export default{
         getMaxnum(){
             getCount(this.testId).then(response=>{
                 this.maxnum = response.data;
-                alert(this.maxnum)
+                
             })
         },
 
         getQuestions(){
-            getQuestion(this.testId,this.num).then(response=>{
+            getQuestion(this.testId).then(response=>{
                 this.loading = true
                 if(response.success){
-                    let data = response.data;
-                    this.num = data.num;
-                    this.question = data.desc
+                    let data = response.data;                  
+                    this.question = data
                     this.loading = false
-                    this.per = parseInt(this.num *100/this.maxnum)
+                    
                 }
             })
             
@@ -90,9 +89,10 @@ export default{
             getResByScore(this.testId,this.score).then(response=>{   
                 if(response.success){
                     this.responseId= response.data.responseId 
-                    alert(this.responseId) 
+                    saveResponse(this.userId,this.responseId,this.score)
+                    
                 }else{
-                        alert("失败")         
+                        this.$message.error('生成报告失败！');
                 }          
                     
                           
@@ -102,14 +102,12 @@ export default{
         nextQuestion(){
             if(this.num==this.maxnum){   
                 this.score += this.answer                              
-                this.getResponseByScore()                         
-                saveResponse(this.userId,this.responseId,this.score)
-                alert("      您已完成测评,点击返回首页 "  )  
-                this.$router.push('/example/table')
-            }else{
-                
+                this.getResponseByScore()                                                    
+                this.$message.success("      您已完成测评,点击返回首页 "  )  
+                this.$router.push('/example/report')
+            }else{               
                 this.num++              
-                this.getQuestions()
+                this.per = parseInt(this.num *100/this.maxnum)
                 this.score += this.answer
                
                 
@@ -124,7 +122,7 @@ export default{
 
 <style>
   .text {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .item {

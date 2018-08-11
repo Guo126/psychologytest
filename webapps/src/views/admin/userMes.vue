@@ -50,12 +50,22 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button @click="delete(1)" type="text" size="middle">删除</el-button>
-        
+        <el-button @click="deleteButton(scope.row.userId);dialogVisible=true" type="text" size="middle">删除</el-button>
+          
       </template>
     </el-table-column>
   </el-table>
-
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="20%"
+            :before-close="handleClose">
+            <span>确认删除吗？</span>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary"  @click="dialogVisible =false ;deleteUser()">确 定</el-button>
+            </span>
+          </el-dialog>
   </div>
 </template>
 
@@ -66,22 +76,33 @@ import {userSearch,userDelete} from "@/api/login"
     created(){
       this.search()
     },
-    methods: {
-     
-      delete(id){
-        userDelete(id).then(response=>{
+    methods:{ 
+      
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      },
+      deleteButton(id){
+        this.id = id ;
+      },
+      deleteUser(){
+        userDelete(this.id).then(response=>{
           if(response.success){
-            alert("删除成功!")
+            this.$message.success('删除成功！');
             location.reload()
           }else{
-            alert("删除失败!")
+            this.$message.error('删除失败！');
+           
           }
         })
       },
       search(){
         userSearch(this.input).then(response=>{
           if(response.success){
-            console.log(response.data)
+            
               this.tableData=response.data
           }
         })
@@ -95,6 +116,8 @@ import {userSearch,userDelete} from "@/api/login"
          
         }],
         input:'',
+        dialogVisible:false,
+        id:0,
       }
     }
   }

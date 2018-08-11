@@ -2,6 +2,7 @@
     <div class="app-container" > &nbsp;&nbsp;&nbsp;
         
         <div style="float:right">
+          <span>共{{total}}题</span>
             <el-button type="primary" icon="el-icon-plus"  @click="dialogFormVisible = true">添加</el-button> 
             <el-dialog title="添加试题" :visible.sync="dialogFormVisible">
                 <el-form >
@@ -19,7 +20,8 @@
          <el-card  v-for="(o,index) in list" :key="o.questionNum" :body-style="{ padding: '20px'}" style="background-color:#E0ECF8 ; margin-top:6px">
           <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
           <div style="padding: 14px;">
-              <span>第{{o.questionNum}}题</span>&nbsp;&nbsp;&nbsp;
+              <span>第{{currentPage}}页&nbsp;&nbsp;第{{index+1}}题</span>&nbsp;&nbsp;&nbsp;
+              </br></br>
               <el-input   type="textarea" :rows="3"    v-model="o.questionDesc" > </el-input>    
               <el-button type="primary"  @click="resetQuestion(o.questionNum,o.questionDesc)" style="float:right">保存</el-button> &nbsp; &nbsp;
               <el-button type="primary"  @click="dialogVisible = true;deleteButton(o.questionNum)" style="float:right">删除</el-button>  &nbsp; &nbsp;
@@ -61,7 +63,6 @@ import urls from "urls-js";
         data(){
             return {   
                 currentPage: 1,
-                addId: 0 ,
                 testId:undefined,
                 num : 1 ,                         
                 loading:true,               
@@ -91,13 +92,13 @@ import urls from "urls-js";
          
           handleCurrentChange(val) {
             this.currentPage = val
+            
             this.getQuestions()
-            console.log(`当前页: ${val}`);
+            
           }, 
           getQuestions(){
               quesPage(this.currentPage-1,4,this.testId).then(response=>{                   
-                    this.list = response.data.content
-                    this.addId = response.data.content.length
+                    this.list = response.data.content                   
                     this.lists = response.data.pageable
                     this.total = response.data.totalElements                  
               })
@@ -112,20 +113,19 @@ import urls from "urls-js";
           resetQuestion(nowId,newDesc){      
             resetQues(this.testId,nowId,newDesc).then(response=>{
               if(response.success){
-                alert("修改成功！")
-                location.reload()
+                this.$message.success("修改成功！")              
               }else{
-                alert("修改失败！")
+                this.$message.error('修改失败！');
               }
             })
         },
         addQuestion(){      
-            addQues(this.testId,this.addId+1,this.addDesc).then(response=>{
+            addQues(this.testId,this.total+1,this.addDesc).then(response=>{
               if(response.success){
-                alert("添加成功！")
+                this.$message.success("添加成功！") 
                 location.reload()
               }else{
-                alert("添加失败！")
+                this.$message.error('添加失败！');
               }
               
             })
@@ -133,10 +133,10 @@ import urls from "urls-js";
         deleteQuestion(){             
             deleteQues(this.testId,this.index).then(response=>{
               if(response.success){
-                alert("删除成功！")
+                this.$message.success("删除成功！") 
                 location.reload()
               }else{
-                alert("删除失败！")
+                this.$message.error('删除失败！');
               }
             })
         },

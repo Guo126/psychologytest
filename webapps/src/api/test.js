@@ -10,17 +10,18 @@ export function getPaper(page,pageSize){
 }
 
 
-export function getQuestion(paperId,numId){
+export function getQuestion(paperId){
     return request({
-        url:'/question/aQuestion',
+        url:'/question/questionList',
         method: 'get',
-        params: {paperId ,numId}
+        params: {paperId }
     })
 }
 
+
 export function getCount(paperId){
     return request({
-        url:'/question/paperCount',
+        url:'/question/questionCount',
         method:'get',
         params: {paperId}
     })

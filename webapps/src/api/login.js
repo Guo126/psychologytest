@@ -11,6 +11,21 @@ export function login(username, password) {
   })
 }
 
+export function register(form){
+  return request({
+    url: '/user/register',
+    method: 'post',
+    params:{username:form.username,
+      nickname:form.nickname,
+      password:form.password,
+      sex:form.sex,
+      phone:form.phone,
+      mail:form.mail,
+      desc:form.desc,
+      birthday:form.birthday}
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/user/info',
