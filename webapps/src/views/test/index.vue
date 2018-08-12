@@ -9,14 +9,14 @@
           <span>{{o.paperDesc}}</span>
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button" @click="handleDispatchSepcific(o.paperId)">开始答题</el-button>
+            <el-button type="primary"  round style="float:right" @click="handleDispatchSepcific(o.paperId)">开始答题</el-button>
           </div>
         </div>
       </el-card>
       <div class="block" style=" margin-left:36% ; margin-top:100px">
             <span class="demonstration"></span>
                 <el-pagination
-                @size-change="handleSizeChange"
+               
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="4"

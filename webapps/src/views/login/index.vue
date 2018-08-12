@@ -96,7 +96,7 @@ export default {
 name: 'login',
 data() {
 const validateUsername = (rule, value, callback) => {
-if (!isvalidUsername(value)) {
+if (value.length<1) {
 callback(new Error('请输入正确的用户名'))
 } else {
 callback()
@@ -115,7 +115,7 @@ username: '',
 password: ''
 },
 loginRules: {
-username: [{ required: true, trigger: 'blur' }],
+username: [{ required: true, trigger: 'blur' ,validator: validateUsername}],
 password: [{ required: true, trigger: 'blur', validator: validatePass }]
 },
 loading: false,
@@ -137,8 +137,10 @@ form:{
 methods: {
 addUser(){
   register(this.form).then(response=>{
-    alert(this.form.birthday)
+    
     if(response.success){
+      this.loginForm.username = this.form.username
+      this.loginForm.password = this.form.password
       alert("注册成功!")
     }else{
       alert("请填写完整信息！")

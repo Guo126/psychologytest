@@ -103,8 +103,8 @@ export default{
             if(this.num==this.maxnum){   
                 this.score += this.answer                              
                 this.getResponseByScore()                                                    
-                this.$message.success("      您已完成测评,点击返回首页 "  )  
-                this.$router.push('/example/report')
+                this.$message.success("      您已完成测评 "  )  
+                this.$router.push('/example/table')
             }else{               
                 this.num++              
                 this.per = parseInt(this.num *100/this.maxnum)
