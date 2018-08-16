@@ -20,7 +20,7 @@
                 show-stops>
                 </el-slider>
                 </br></br>
-                <el-button style="float: right; padding: 3px 0" type="text"  @click = "nextQuestion">下一题</el-button>
+                <el-button style="float: right"  type="primary"  round  @click = "nextQuestion">下一题</el-button>
                 </br>
             </div></br></br>
             <span>0:非常不符合（0分）  1:比较不符合（1分）    2:不确定（2分）    3:比较符合（3分）    4:非常符合（4分）</span>
