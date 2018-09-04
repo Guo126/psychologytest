@@ -68,6 +68,7 @@ public class UserController {
         return ResultUtil.buildBaseResult(result -> userService.searchUser(nickname,result));
     }
 
+    @PostMapping("/setUserLevel")
     public ModifyResult setUserLevel(@RequestParam("userId") Integer userId,
                                      @RequestParam("userLevel") Integer userLevel){
         return ResultUtil.buildModifyResult(result -> userService.setUserLevel(userId,userLevel,result));
