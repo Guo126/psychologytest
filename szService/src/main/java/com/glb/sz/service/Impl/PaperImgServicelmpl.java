@@ -7,6 +7,7 @@ import com.glb.sz.service.PaperImgService;
 import com.glb.sz.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+@Service
 public class PaperImgServicelmpl implements PaperImgService {
 
     @Autowired
