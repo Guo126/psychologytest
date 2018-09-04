@@ -104,8 +104,7 @@ export function resetRes(responseId,minScore,responseDesc){
                password:form.password,
                nickname:form.nickname,
                phone:form.phone,
-               sex:form.sex,
-               
+               sex:form.sex,              
                mail:form.mail,
                birthday:form.birthday},
      })
@@ -123,8 +122,8 @@ export function resetRes(responseId,minScore,responseDesc){
     return request({
         url:'/response/saveImg',
         method:'post',
-        params:{params},
-        
+        contentType:'multipart/form-data',
+        data: params
     })
  }
 

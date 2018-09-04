@@ -17,10 +17,10 @@
             </div>
           </el-dialog>
         </div> </br></br></br>
-        <el-card  v-for="(o,index) in list" :key="o.responseId" :body-style="{ padding: '20px'}" style="background-color:#E0ECF8 ; margin-top:6px">
-          <!-- <img src="~examples/assets/images/hamburger.png" class="image"> -->
+        <el-card  v-for="(o,index) in list" :key="o.responseId" :body-style="{ padding: '20px'}" style="background-color:#E0ECF8 ; margin-top:6px" method="getImgList(o.responseId)">
+           
           <div style="padding: 14px;">
-             <!-- <span>第{{o.responseId}}份报告</span>&nbsp;&nbsp;&nbsp; -->
+             <span>报告ID:&nbsp;&nbsp;{{o.responseId}}</span>&nbsp;&nbsp;&nbsp;
              <span>最低分数为 <el-input v-model="o.minScore"  style="width:50px"> </el-input>分</span>
              <el-button type="primary"  @click="resetResponse(o.responseId,o.minScore,o.responseDesc)" style="float:right">保存</el-button> &nbsp; &nbsp;
              <el-button type="primary"  @click="deleteButton(o.responseId);dialogVisible = true" style="float:right">删除</el-button>  &nbsp; &nbsp;
@@ -35,27 +35,38 @@
                   <el-button type="primary"  @click="dialogVisible =false ;deleteResponse()">确 定</el-button>
                 </span>
             </el-dialog></br></br>
-
-            <div>
-
-<span><a href="javascript:;" class="file_prev">本地上传</a><input type="file" class="preFile" name="staffFile" multiple="multiple" @change="changeFn($event)" v-if="clearShow"></span>
-
-  </div>
-
-
-            <el-upload
-                action="https://jsonplaceholder.typicode.com/posts/"
-                list-type="picture-card"
-                :http-request="imgRoad"
-                :file-list="imgList"
-                :show-file-list="true"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="imgVisible">
-                <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog> </br></br>    
+            <el-button type="primary"  @click="deleteButton(o.responseId);getImgList(o.responseId) ;uploadVisible = true" >图片上传</el-button>  &nbsp; &nbsp;
+            <el-dialog
+                z-index = 2
+                title="图片上传"
+                :visible.sync="uploadVisible"
+                width="60%"
+                size="large"
+                :before-close="handleClose">
+                  <div v-for="n in  imgList" :key="n.imgId" >
+                    <img  width="140px" height="140px" :src="n.imgUrl" style="float:right ;margin-left:20px" @click="imgVisible=true;check(n.imgUrl)" >
+                 </div> 
+              <div >
+                <el-upload                   
+                    action="http://101.132.161.199:8848/psycholog/img/"
+                    list-type="picture-card"
+                    :http-request="imgRoad"                    
+                    :show-file-list="false"            
+                    :on-preview="handlePictureCardPreview"                  
+                    >
+                    <i class="el-icon-plus"></i>
+                </el-upload>
+              </div>
+            </br>
+                <el-dialog z-index= 10 :visible.sync="imgVisible" append-to-body="true">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="uploadVisible = false">取 消</el-button>
+                  <el-button type="primary"  @click="uploadVisible =false ">确 定</el-button>
+                </span>
+            </el-dialog>
+           </br></br></br> 
 
           <el-input   type="textarea" :rows="8"    v-model="o.responseDesc" > </el-input>         
         </div>       
@@ -65,7 +76,7 @@
 </template>
 
 <script>
-import {getRes,addRes,deleteRes,resetRes,saveImg} from "@/api/change";
+import {getRes,addRes,deleteRes,resetRes,saveImg,getImg} from "@/api/change";
 import {getResponsePage} from "@/api/test"; 
 
 import urls from "urls-js";
@@ -88,10 +99,10 @@ import urls from "urls-js";
                 addScore: 0,
                 addDesc:'',
                 imgVisible:false,
-                dialogImageUrl:'',
-                imgList: [],
-            deviceArray :undefined,
-                
+                dialogImageUrl:'',  
+                imgList:[],  
+                lists:[] ,
+                uploadVisible:false,                     
           }
            
         },
@@ -99,47 +110,32 @@ import urls from "urls-js";
         created(){
             this.testId = urls.parse().hash['testId'];
             this.getResponse();
+            
         },
 
         methods:{
-          changeFn(e){
-            this.deviceArray = [];
-            let deviceFile = e.target.files;
-            console.log(deviceFile)
-            let formData = new FormData();
-            for(let i=0;i<deviceFile.length;i++){
-              formData.append('file', deviceFile[i]);
-            }
-            this.clearShow = false;
-            let config = {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
-            this.$axios.post(this.$API.processManage.processAddCheck,
-              formData, config
-            ).then((res)=>{
-              console.log(res);
-              this.clearShow = true;
-            },()=>{
-                this.clearShow = true;
-            });
+          check(url){
+            this.dialogImageUrl=url
           },
-
-
-
-
-          imgRoad(item){
-            let img = item.file
+          getImgList(resId){
+             getImg(resId).then(response=>{
+              if(response.success){                                          
+                 this.imgList=response.data 
+                           
+              }
+            })
             
+          },
+          imgRoad(item){
+            let img = item.file           
             let newData = new FormData()
-            newData.append('responseId', 1)
-            newData.append('img', img)  
-                      
+            newData.append('responseId', this.index)
+            newData.append('img', img)                        
             saveImg(newData).then(response=>{
               if(response.success){
                 this.$message.success("上传成功！") 
-                    
+                 location.reload()
+                  
               }
             })
           },
@@ -152,12 +148,14 @@ import urls from "urls-js";
               getRes(this.testId).then(response=>{
                   let data = response.data;
                   this.list = data; 
+                  // let i = 0  
+                  // for( ;i<data.length;i++){
+                  //   this.getImgList(data[i].responseId)
+                  // }
                   
               })
           },
-          handleRemove(file, fileList) {
-            console.log(file, fileList);
-          },
+         
           handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
             this.imgVisible = true;
@@ -194,7 +192,7 @@ import urls from "urls-js";
             })
           },
           handleClose(done) {
-      this.$confirm('确认关闭？')
+       this.$confirm('确认关闭？')
         .then(_ => {
           done();
         })

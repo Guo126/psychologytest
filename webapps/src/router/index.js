@@ -72,6 +72,7 @@ export const constantRouterMap = [
         meta: { title: '查看报告', icon: 'table' }
       },
      
+     
     ]
   },
 
