@@ -4,6 +4,7 @@ import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
 import com.glb.sz.model.dto.UserMessageDTO;
 import com.glb.sz.model.entity.User;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.Date;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface UserService {
     void changeUserMessage(Integer userId, UserMessageDTO userMessageDTO,BaseResult<User> result);
     void deleteUser(Integer userId, ModifyResult result);
     void searchUser(String nickname, BaseResult<List<User>> result);
+    void setUserLevel(Integer userId, Integer userLevel,ModifyResult result);
 }

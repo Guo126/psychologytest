@@ -138,4 +138,11 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    @Transactional
+    public void setUserLevel(Integer userId, Integer userLevel, ModifyResult result) {
+        int r = userRepository.setUserLevel(userId,userLevel);
+        ResultUtil.setModifyResult(r == 0 ? "成功":"失败",r == 0,result);
+    }
 }

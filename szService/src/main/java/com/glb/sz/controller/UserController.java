@@ -67,4 +67,9 @@ public class UserController {
     public BaseResult<List<User>> seacrh(@RequestParam("nickname") String nickname){
         return ResultUtil.buildBaseResult(result -> userService.searchUser(nickname,result));
     }
+
+    public ModifyResult setUserLevel(@RequestParam("userId") Integer userId,
+                                     @RequestParam("userLevel") Integer userLevel){
+        return ResultUtil.buildModifyResult(result -> userService.setUserLevel(userId,userLevel,result));
+    }
 }
