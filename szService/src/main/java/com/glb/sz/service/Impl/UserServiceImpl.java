@@ -1,6 +1,7 @@
 package com.glb.sz.service.Impl;
 
 
+import com.glb.sz.constant.UserConstant;
 import com.glb.sz.repository.UserRepository;
 import com.glb.sz.model.BaseResult;
 import com.glb.sz.model.ModifyResult;
@@ -77,7 +78,8 @@ public class UserServiceImpl implements UserService {
                 mail == null ? "" : mail,
                 desc == null ? "" : desc,
                 birthday == null ? new Date() : birthday,
-                "notOnline");
+                "notOnline",
+                UserConstant.USER_LEVEL_NORMAL);
         User user = new User(username, MD5Util.getMD5String(password), nickname, "offline");
         if (sex != null) {
             user.setSex(sex);
