@@ -20,7 +20,6 @@ public class PaperController {
 
     @Autowired
     private PaperService paperService;
-
     @Autowired
     private PaperImgService paperImgService;
 
