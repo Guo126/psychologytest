@@ -6,5 +6,5 @@ server:
 
 #文件虚拟路径
 ResourcePath: C:\Users\Administrator\Desktop\dsz\res\
-getResourcePath: http:101.132.161.199:8848/psycholog/img/
+getResourcePath: http://101.132.161.199:8848/psycholog/img/
 #getResourcePath: http:localhost:8848/psycholog/img/
